@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.11.0 — 2026-10-05
+
+- New `manage-inbox` skill: read and triage Inbox conversations (DMs,
+  reviews, comment threads), reply to DMs and comments, and moderate
+  comments. The assistant shows the exact text and recipient and asks before
+  every send, reply or deletion, and never sends in bulk.
+- Tool counts: the hosted server now serves 27 tools (was 20) and the local
+  server 79 (was 72), with seven new Inbox and comment tools.
+- `using-bulkpublish` and README list the new tools and explain which are
+  plan-gated (the Inbox is Pro and Business) and when a channel needs
+  reconnecting.
+- Cursor plugin registers `manage-inbox`.
+
 ## 1.10.9 — 2026-10-02
 
 - Skills: `search_mentions` now covers Mastodon. Handles come back as

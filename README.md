@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**72 MCP tools** in the local server (`npx @bulkpublish/mcp-server@1.33.2`), including interactive MCP Apps widgets. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a 20-tool `core` profile — channels, posts, media, analytics and the interactive panels — and `BULKPUBLISH_TOOL_PROFILE=core|full` switches either.
+**79 MCP tools** in the local server (`npx @bulkpublish/mcp-server@1.33.2`), including interactive MCP Apps widgets. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a 27-tool `core` profile — channels, posts, media, analytics, Inbox and comments, and the interactive panels — and `BULKPUBLISH_TOOL_PROFILE=core|full` switches either.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -15,6 +15,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 | **Labels, hashtag groups, templates, calendar notes** | 16 | Create, list, update, delete each |
 | **Client review & connect links** | 8 | Share/unshare a post, batch review links, client connect links |
 | **Schedules, channel sets, RSS autopost** | 12 | Create, list, update, delete each |
+| **Inbox and comments** | 7 | List and read conversations, reply to DMs and reviews, triage (read/archive/snooze/assign), list comments, reply to and moderate comments |
 | **Quota** | 1 | Plan usage and limits |
 | **Interactive panels** | 6 | Composer, posts, channels, media, analytics, quota |
 
@@ -23,6 +24,8 @@ Every tool carries a title and explicit `readOnlyHint` / `destructiveHint` / `id
 **Team approval:** posts carry an `approvalStatus` (`none` default | `pending` | `approved` | `rejected`) that is separate from `status` — a pending or rejected post never publishes. Pass `requestApproval: true` (default `false`) when creating or updating a scheduled post to hold it for review (a draft ignores it); it is forced on for API keys whose role lacks `post:publish` (contributors), who also get `403 APPROVAL_REQUIRED` from publish/retry. Owners, admins and approvers release posts with `approve_post` / `reject_post`. An approved post publishes at its scheduled time, or immediately if that time passed less than 15 minutes ago; if it passed more than 15 minutes ago, the post comes back as `status: "draft"` (`approvalStatus: "approved"`, `scheduledAt` unchanged) and the author is notified to choose a new time. Set `publishWhenApproved: true` on create/update to have a late approval publish straight away instead (use it for "publish now, once approved", scheduling for the current time — not when a specific time was chosen), and `approve_post` takes an optional `whenLate` (`"publish"` | `"hold"`) to decide for a single late post; left out, the post's `publishWhenApproved` decides. Both tools take an optional `ifUnmodifiedSince` — pass the `updatedAt` of the version shown to the user — and return 409 if the post changed since you loaded it (checked when `ifUnmodifiedSince` is sent) or is no longer awaiting approval; nothing is written, so reload it and review again. Approving or rejecting sets `publishWhenApproved` to `false`.
 
 **Link tracking:** BulkPublish can rewrite a post's links to `bulkpubli.sh` short URLs and count the clicks — the only way to measure outbound clicks, since platform APIs do not report them (X dropped the field entirely). It is off by default and opt-in per organization; `linkTrackingOverride` (`true` | `false` | `null`, default `null`) overrides it per post. It is **tri-state — omit it unless the user asked**, because `false` is an explicit "post the links as written", not the same as inheriting. Clicks come back as `linkClicks` / `totalLinkClicks`, which are measured by us and therefore available on every platform, and are deliberately **not** part of `clicks`/`totalClicks` — one visit can register in both, so never add them together. Shortening is skipped on any channel where the rewrite would exceed that platform's character limit (a short URL is 28 characters and can be longer than the link it replaces), so tracking can silently not apply on X or Bluesky; the post still publishes with its original links.
+
+**Inbox and comments:** the Inbox (DMs, reviews, comment threads) is part of the Pro and Business plans; replying to and moderating comments on a post is not plan-limited. A channel connected before message or comment access was available may need reconnecting, and some platforms do not allow DMs or replies yet. Replies and deletions cannot be unsent, so the `manage-inbox` skill makes the assistant show the exact text and recipient and wait for your yes on each one.
 
 **Supported platforms:** Facebook, Instagram, X/Twitter, TikTok, YouTube, Threads, Bluesky, Pinterest, Google Business Profile, LinkedIn, Mastodon, Discord, Telegram, Tumblr, Snapchat
 
@@ -548,14 +551,18 @@ Once connected, just ask your AI assistant in natural language:
 "Schedule this for Friday 9am but hold it for my editor to approve"
 
 "Show me everything waiting on approval, then approve the LinkedIn one"
+
+"What came into my inbox today? Draft replies for the questions"
 ```
 
 ---
 
-## All 51 MCP Tools
+## MCP Tool Reference
 
-The hosted server serves the 20-tool `core` profile marked below; the local
-server serves all 51. Set `BULKPUBLISH_TOOL_PROFILE=core|full` to switch.
+The hosted server serves the 27-tool `core` profile marked below; the local
+server serves all 79 (the list below shows the main groups; labels, hashtag
+groups, templates, calendar notes and review/connect links are summarised in
+the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|full` to switch.
 
 <details>
 <summary>Click to expand full tool list</summary>
@@ -586,6 +593,9 @@ server serves all 51. Set `BULKPUBLISH_TOOL_PROFILE=core|full` to switch.
 
 **RSS autopost (4):**
 `list_rss_feeds`, `create_rss_feed`, `update_rss_feed`, `delete_rss_feed`
+
+**Inbox and comments (7):**
+`list_conversations`*, `get_conversation`*, `reply_to_conversation`*, `update_conversation`*, `list_post_comments`*, `reply_to_comment`*, `moderate_comment`*
 
 **Quota (1):**
 `get_quota_usage`

@@ -33,12 +33,14 @@ on real accounts.
    truncated into a tweet reads like a mistake, because it is one.
 5. **Check the character limit before writing, not after.** The limits table
    below is the contract; an over-long post is rejected, not trimmed.
-6. **Say what you did.** After creating posts, list what went where and when,
+6. **Confirm every reply, message and comment deletion one by one.** They go
+   to a real person immediately and cannot be unsent.
+7. **Say what you did.** After creating posts, list what went where and when,
    so the user can correct you before anything publishes.
 
 ## Tools
 
-The hosted server exposes 20 tools. The local package exposes 72, adding
+The hosted server exposes 27 tools. The local package exposes 79, adding
 labels, hashtag groups, templates, calendar notes, review and client-connect
 links, channel sets, schedules, RSS autopost and quota.
 
@@ -72,6 +74,21 @@ list_media              the library
 ```
 get_analytics      totals and per-platform breakdown for a date range
 ```
+
+**Inbox and comments** (see the `manage-inbox` skill before sending anything)
+```
+list_conversations     DMs, reviews and comment threads
+get_conversation       messages in one conversation
+reply_to_conversation  send a DM or review reply now (cannot be unsent)
+update_conversation    mark read, archive, snooze, assign
+list_post_comments     comments on a published post
+reply_to_comment       public reply under a comment (cannot be unsent)
+moderate_comment       like, hide or delete a comment
+```
+The Inbox is part of the Pro and Business plans; replying to comments is not
+plan-limited. A channel connected before message or comment access existed may
+need reconnecting, and some networks do not allow DMs or replies yet. Always
+show the exact text and recipient and get a yes before any reply or deletion.
 
 **Interactive panels** (render in hosts that support MCP Apps)
 ```
