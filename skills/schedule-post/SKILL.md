@@ -37,7 +37,9 @@ publishWhenApproved (boolean)     — default false; with requestApproval, publi
 linkTrackingOverride (boolean|null) — default null; per-post override for
                                     bulkpubli.sh link tracking. true shortens the
                                     post's links and counts clicks, false posts
-                                    them as written, null inherits the org setting
+                                    them as written, null inherits the org setting.
+                                    Pro and Business only: on Free, links always
+                                    publish as written
 ```
 
 `linkTrackingOverride` is tri-state, so **omit it unless the user actually asked

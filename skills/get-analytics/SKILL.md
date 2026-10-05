@@ -50,7 +50,8 @@ always contains it. Two rules when reporting it:
 - **Never add it to `clicks`/`totalClicks`.** Those are the platform's own click
   figures. One visit can register in both, so summing them double-counts.
 - **A 0 here is ambiguous in a specific way**: it means no tracked clicks, which
-  also happens when the organization has link tracking switched off, when the
+  also happens when the organization has link tracking switched off or is on
+  the Free plan (no short links there), when the
   post contained no links, or when shortening was skipped on that channel for
   exceeding its character limit. Bot and link-preview traffic is excluded by
   design. Say "no tracked link clicks" rather than "nobody clicked".

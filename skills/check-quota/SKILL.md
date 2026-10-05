@@ -37,7 +37,7 @@ on that plan.
 | Repeating schedules | 0 | 10 | unlimited |
 | Labels | 10 | 50 | unlimited |
 | Team members | 1 | 3 | 10 |
-| RSS feeds | 1 | 10 | 50 |
+| RSS feeds | 1 | 3 | 10 |
 | RSS auto-publish | no | yes | yes |
 
 ## Notes
