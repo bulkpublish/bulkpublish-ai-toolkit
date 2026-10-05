@@ -86,8 +86,8 @@ list_post_comments     comments on a published post
 reply_to_comment       public reply under a comment (cannot be unsent)
 moderate_comment       like, hide or delete a comment
 ```
-The Inbox and comment replies are part of the Pro and Business plans; reading
-a post's comments works on every plan. A channel connected before message or comment access existed may
+The Inbox is part of the Pro and Business plans; comment replies are on every
+plan except Free, and reading a post's comments works on every plan. A channel connected before message or comment access existed may
 need reconnecting, and some networks do not allow DMs or replies yet. Always
 show the exact text and recipient and get a yes before any reply or deletion.
 
