@@ -40,7 +40,8 @@ on real accounts.
 
 ## Tools
 
-The hosted server exposes 27 tools. The local package exposes 79, adding
+The hosted server exposes 20 tools, or 27 where it serves the Inbox and
+comment tools. The local package exposes 79, adding
 labels, hashtag groups, templates, calendar notes, review and client-connect
 links, channel sets, schedules, RSS autopost and quota.
 

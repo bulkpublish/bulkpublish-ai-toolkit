@@ -6,8 +6,9 @@
   reviews, comment threads), reply to DMs and comments, and moderate
   comments. The assistant shows the exact text and recipient and asks before
   every send, reply or deletion, and never sends in bulk.
-- Tool counts: the hosted server now serves 27 tools (was 20) and the local
-  server 79 (was 72), with seven new Inbox and comment tools.
+- Tool counts: seven new Inbox and comment tools. The local server serves 79
+  (was 72); the hosted server serves them in its 27-tool `inbox` profile, and
+  stays at 20 under `core`.
 - `using-bulkpublish` and README list the new tools and explain which are
   plan-gated (the Inbox is Pro and Business) and when a channel needs
   reconnecting.

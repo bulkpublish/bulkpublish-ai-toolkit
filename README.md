@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**79 MCP tools** in the local server (`npx @bulkpublish/mcp-server@1.33.2`), including interactive MCP Apps widgets. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a 27-tool `core` profile — channels, posts, media, analytics, Inbox and comments, and the interactive panels — and `BULKPUBLISH_TOOL_PROFILE=core|full` switches either.
+**79 MCP tools** in the local server (`npx @bulkpublish/mcp-server@1.33.2`), including interactive MCP Apps widgets. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves the 20-tool `core` profile — channels, posts, media, analytics and the interactive panels — or the 27-tool `inbox` profile, which adds the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches either.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -559,10 +559,10 @@ Once connected, just ask your AI assistant in natural language:
 
 ## MCP Tool Reference
 
-The hosted server serves the 27-tool `core` profile marked below; the local
+The hosted server serves the 20-tool `core` profile marked `*` below (plus the tools marked `+` where it serves the `inbox` profile); the local
 server serves all 79 (the list below shows the main groups; labels, hashtag
 groups, templates, calendar notes and review/connect links are summarised in
-the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|full` to switch.
+the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 
 <details>
 <summary>Click to expand full tool list</summary>
@@ -595,7 +595,7 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|full` to switch.
 `list_rss_feeds`, `create_rss_feed`, `update_rss_feed`, `delete_rss_feed`
 
 **Inbox and comments (7):**
-`list_conversations`*, `get_conversation`*, `reply_to_conversation`*, `update_conversation`*, `list_post_comments`*, `reply_to_comment`*, `moderate_comment`*
+`list_conversations`+, `get_conversation`+, `reply_to_conversation`+, `update_conversation`+, `list_post_comments`+, `reply_to_comment`+, `moderate_comment`+
 
 **Quota (1):**
 `get_quota_usage`
@@ -603,7 +603,7 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|full` to switch.
 **Interactive UI (MCP Apps) (6):**
 `compose_post`*, `view_analytics`*, `view_posts`*, `view_channels`*, `view_media`*, `view_quota`
 
-`*` = in the hosted `core` profile.
+`*` = in the hosted `core` profile. `+` = added by the `inbox` profile.
 
 </details>
 
