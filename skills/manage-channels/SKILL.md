@@ -20,7 +20,7 @@ Each channel: `id`, `platform`, `accountName`, `accountId`, `accountType`, `isAc
 
 ## Platform names (used in channels and create_post)
 
-`facebook`, `instagram`, `x`, `linkedin`, `tiktok`, `youtube`, `pinterest`, `threads`, `bluesky`, `gmb`, `mastodon`, `reddit`, `discord`, `telegram`, `tumblr`, `snapchat`
+`facebook`, `instagram`, `x`, `linkedin`, `tiktok`, `youtube`, `pinterest`, `threads`, `bluesky`, `gmb`, `mastodon`, `discord`, `telegram`, `tumblr`, `snapchat`
 
 ## Channel options by platform
 

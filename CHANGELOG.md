@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.0 — 2026-10-09
+
+### Removed
+
+- Reddit platform support. Breaking: `reddit` is no longer a valid platform
+  value; the Reddit section of `platform-reference` and its rows in
+  `manage-channels` and `get-analytics` are gone.
+
 ## 1.11.0 — 2026-10-05
 
 - New `manage-inbox` skill: read and triage Inbox conversations (DMs,

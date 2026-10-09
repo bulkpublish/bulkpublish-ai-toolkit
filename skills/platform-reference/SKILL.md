@@ -1,6 +1,6 @@
 ---
 name: platform-reference
-description: Complete reference for the 15 BulkPublish platforms (plus Reddit, currently switched off) — post types, media requirements, required fields, character limits, and platformSpecific options. ALWAYS consult before creating posts.
+description: Complete reference for the 15 BulkPublish platforms — post types, media requirements, required fields, character limits, and platformSpecific options. ALWAYS consult before creating posts.
 ---
 
 # BulkPublish — Platform Reference
@@ -314,44 +314,6 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 
 ---
 
-## Reddit
-
-> **Currently unavailable.** Reddit is implemented but switched off pending Reddit
-> API approval — it does not appear in `list_platforms` and connecting a Reddit
-> channel is refused. The reference below applies once it is re-enabled.
-
-| Field | Value |
-|---|---|
-| Platform key | `reddit` |
-| Char limit | 40,000 (body) |
-| Title required | No — defaults to the first line of `content`, truncated to 300 chars |
-| Subreddit required | **YES** — `subreddit`, or one stored on the channel |
-
-**Post types:** the submission kind is **derived, never set directly** — image attached → image post, video attached → video post, `type: "link"` or `url` set → link post, otherwise a text (self) post.
-
-**Media specs:** exactly **one** file on a media post — one image (20MB, jpg/png/gif) OR one video (1GB, mp4/mov). Two images, or an image plus a video, fails validation.
-
-**platformSpecific** — keyed by **channel ID**, because each connected Reddit account commonly posts to a different subreddit. A flat object is also accepted and applies to every Reddit channel:
-
-```json
-{"platformSpecific": {"reddit": {"12": {"subreddit": "webdev", "title": "Show and tell"}}}}
-```
-
-| Option | Notes |
-|---|---|
-| `subreddit` | **REQUIRED.** `webdev`, `r/webdev` and `/r/webdev` are all accepted. Falls back to the subreddit stored on the channel. |
-| `title` | Optional — defaults to the first line of `content`, truncated to 300 chars. |
-| `type` | `"link"` forces a link submission. |
-| `url` | Destination URL for a link post; implies `type: "link"`. |
-| `flairId` | Link-flair id. List a subreddit's flairs via `GET /api/channels/{id}/options`. |
-| `thumbnailUrl` | Poster image for a video post. Optional: when omitted the video's auto-extracted poster frame is used, and the publish fails only if neither exists. There is no attached-image fallback, since a Reddit media post takes exactly one file. |
-
-There is no `flairText`, `nsfw` or `spoiler` option — those are not read by the server.
-
-**Gotchas:** Reddit returns HTTP 200 even when a subreddit rule rejects the submission, so check the post's error message rather than assuming success. Media submissions confirm asynchronously; if Reddit does not confirm within 20 seconds the post is marked failed with a note that it may still have appeared — **verify on the subreddit before retrying**, or you risk a duplicate.
-
----
-
 ## Discord
 
 | Field | Value |
@@ -439,7 +401,7 @@ There is no `flairText`, `nsfw` or `spoiler` option — those are not read by th
 
 **Caption handling:** plain stories carry NO text — the caption is only used as the Spotlight description (160 chars) and as a saved-story title fallback.
 
-**platformSpecific** — a flat object applies to every Snapchat channel, or key options by **channel ID** (like Tumblr/Reddit):
+**platformSpecific** — a flat object applies to every Snapchat channel, or key options by **channel ID** (like Tumblr):
 
 ```json
 {"platformSpecific": {"snapchat": {"title": "My saved story", "locale": "en_US", "saveToProfile": true}}}

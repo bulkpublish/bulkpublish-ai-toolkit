@@ -68,7 +68,6 @@ always contains it. Two rules when reporting it:
 | Pinterest | impressions, clicks, saves, likes, comments, video views | reach |
 | Bluesky | likes, comments, shares, saves (bookmarks) | impressions, reach, clicks, video views |
 | Mastodon | likes, comments, shares | everything else |
-| Reddit | likes (score), comments, shares (crossposts) | impressions, reach, saves, clicks, video views |
 | Discord | likes (reaction counts), comments (thread replies) | everything else |
 | Snapchat | impressions, reach, likes, comments, shares, clicks, video views | saves |
 | Google Business, Telegram, Tumblr | *nothing* | — |
