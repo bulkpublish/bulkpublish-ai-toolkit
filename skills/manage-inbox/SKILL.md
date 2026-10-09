@@ -64,8 +64,11 @@ ahead), assign to a teammate or unassign.
 
 ### moderate_comment
 
-`action` is `like`, `unlike`, `hide`, `unhide` or `delete`. Deleting needs an
-owner, admin or approver role on the workspace.
+`action` is `like`, `unlike`, `hide`, `unhide` or `delete`. Which actions a
+channel supports is in its `commentActions` (Threads: hide and unhide;
+Facebook: hide, unhide and delete). Deleting needs an owner, admin or approver
+role on the workspace. A comment hidden on Threads or Facebook comes back with
+`hidden: true`.
 
 ## When something is refused
 

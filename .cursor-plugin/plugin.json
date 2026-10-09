@@ -1,7 +1,7 @@
 {
   "name": "bulkpublish",
   "displayName": "BulkPublish",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Draft, schedule and publish social media posts across 15 networks, manage media and channels, and read engagement metrics \u2014 through BulkPublish's official remote MCP server.",
   "author": {
     "name": "BulkPublish",

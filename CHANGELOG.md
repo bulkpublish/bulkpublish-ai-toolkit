@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.13.0 — 2026-10-09
+
+- `platform-reference` lists the new post options for X, Bluesky, Mastodon,
+  Threads, Instagram, Facebook, TikTok, YouTube, Pinterest, LinkedIn, Telegram,
+  Discord and Tumblr, the LinkedIn post types `document`, `poll` and `reshare`,
+  and that documents (PDF, Word, PowerPoint) publish to LinkedIn only.
+- Telegram now takes options (it used to be listed as having none).
+- `manage-inbox` notes that Threads supports hide and unhide, Facebook supports
+  hide, unhide and delete, and hidden comments come back with `hidden: true`.
+
 ## 1.12.0 — 2026-10-09
 
 ### Removed
