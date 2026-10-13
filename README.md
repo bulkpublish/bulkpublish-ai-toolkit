@@ -268,6 +268,12 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a github-copilot
 
 ### Gemini CLI
 
+**Recommended — install as a Gemini CLI extension** (hosted MCP server + all skills):
+
+```bash
+gemini extensions install https://github.com/bulkpublish/bulkpublish-ai-toolkit
+```
+
 **Option A — CLI command:**
 
 ```bash
