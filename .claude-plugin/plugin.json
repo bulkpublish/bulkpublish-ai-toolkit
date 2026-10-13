@@ -4,10 +4,11 @@
   "description": "Social media automation toolkit — schedule posts, manage channels, track analytics across 15 platforms via MCP",
   "author": {
     "name": "BulkPublish",
+    "email": "support@bulkpublish.com",
     "url": "https://bulkpublish.com"
   },
   "homepage": "https://bulkpublish.com",
-  "repository": "https://github.com/azeemkafridi/bulkpublish-ai-toolkit",
+  "repository": "https://github.com/bulkpublish/bulkpublish-ai-toolkit",
   "license": "MIT",
   "keywords": [
     "social-media",
