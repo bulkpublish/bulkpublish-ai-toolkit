@@ -635,6 +635,12 @@ BulkPublish is available across many platforms:
 - [MCP Server on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server) — `@bulkpublish/mcp-server@1.33.2`
 - [GitHub](https://github.com/azeemkafridi/bulkpublish-api) — SDKs, examples, guides
 
+## Network endpoints and credentials
+
+- `mcp.json` (Agent Plugins format, used by Cursor): connects to the hosted server `https://mcp.bulkpublish.com/mcp` over HTTPS and signs in with OAuth. No key is stored in the repo.
+- `.mcp.json` (Grok Build and other clients): runs the pinned `@bulkpublish/mcp-server@1.33.2` locally via `npx`. It reads your key from the `BULKPUBLISH_API_KEY` environment variable and calls only `https://app.bulkpublish.com` with it.
+- Credentials: a BulkPublish API key (starts with `bp_`, created at https://app.bulkpublish.com/developer) or an OAuth sign-in. No other secrets, files, or env vars are read.
+
 ## Privacy Policy
 
 The plugin runs the BulkPublish MCP server on your machine and talks only to
