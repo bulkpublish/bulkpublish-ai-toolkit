@@ -42,11 +42,11 @@ Three ways to get started — pick what fits your workflow:
 
 ```bash
 # 1. Claude Code Plugin (recommended — auto-updates, includes skills)
-/plugin marketplace add azeemkafridi/bulkpublish-ai-toolkit
+/plugin marketplace add bulkpublish/bulkpublish-ai-toolkit
 /plugin install bulkpublish@bulkpublish-ai-toolkit
 
 # 2. Agent Skills (works with 41+ agents — Claude Code, Cursor, Codex, Copilot, etc.)
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit
 
 # 3. MCP Server (any MCP-compatible tool)
 claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
@@ -61,7 +61,7 @@ claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
 **Option A — Plugin (recommended, auto-updates):**
 
 ```bash
-/plugin marketplace add azeemkafridi/bulkpublish-ai-toolkit
+/plugin marketplace add bulkpublish/bulkpublish-ai-toolkit
 /plugin install bulkpublish@bulkpublish-ai-toolkit
 ```
 
@@ -70,13 +70,13 @@ You'll be prompted for your API key during installation.
 **Option B — Agent Skills:**
 
 ```bash
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit
 ```
 
 Or install a single skill:
 
 ```bash
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit --skill schedule-post
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit --skill schedule-post
 ```
 
 **Option C — MCP only:**
@@ -144,7 +144,7 @@ seven skills alongside the tools.
 **Option B — Agent Skills:**
 
 ```bash
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit -a cursor
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a cursor
 ```
 
 **Option C — MCP config.** Create or edit `.cursor/mcp.json` in your project root (or globally at `~/.cursor/mcp.json`):
@@ -182,7 +182,7 @@ npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit -a cursor
 **Option A — Agent Skills:**
 
 ```bash
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit -a windsurf
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a windsurf
 ```
 
 **Option B — MCP config.** Edit `~/.codeium/windsurf/mcp_config.json`:
@@ -229,7 +229,7 @@ remote servers, not `url`. In `~/.codeium/windsurf/mcp_config.json`:
 **Option A — Agent Skills:**
 
 ```bash
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit -a github-copilot
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a github-copilot
 ```
 
 **Option B — MCP config.** Add to your VS Code `settings.json` (Cmd+Shift+P > "Preferences: Open User Settings (JSON)"):
@@ -267,6 +267,12 @@ npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit -a github-copilot
 ---
 
 ### Gemini CLI
+
+**Recommended — install as a Gemini CLI extension** (hosted MCP server + all skills):
+
+```bash
+gemini extensions install https://github.com/bulkpublish/bulkpublish-ai-toolkit
+```
 
 **Option A — CLI command:**
 
@@ -323,7 +329,7 @@ connect:
 **Option A — Agent Skills:**
 
 ```bash
-npx skills@1.7.0 add azeemkafridi/bulkpublish-ai-toolkit -a codex
+npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a codex
 ```
 
 **Option B — CLI command:**
@@ -634,6 +640,12 @@ BulkPublish is available across many platforms:
 - [Developer Dashboard](https://app.bulkpublish.com/developer) — API keys & usage
 - [MCP Server on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server) — `@bulkpublish/mcp-server@1.33.2`
 - [GitHub](https://github.com/azeemkafridi/bulkpublish-api) — SDKs, examples, guides
+
+## Network endpoints and credentials
+
+- `mcp.json` (Agent Plugins format, used by Cursor): connects to the hosted server `https://mcp.bulkpublish.com/mcp` over HTTPS and signs in with OAuth. No key is stored in the repo.
+- `.mcp.json` (Grok Build and other clients): runs the pinned `@bulkpublish/mcp-server@1.33.2` locally via `npx`. It reads your key from the `BULKPUBLISH_API_KEY` environment variable and calls only `https://app.bulkpublish.com` with it.
+- Credentials: a BulkPublish API key (starts with `bp_`, created at https://app.bulkpublish.com/developer) or an OAuth sign-in. No other secrets, files, or env vars are read.
 
 ## Privacy Policy
 

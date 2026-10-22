@@ -1,0 +1,15 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "bulkpublish",
+  "version": "1.11.0",
+  "description": "Draft, schedule and publish social media posts across 15 networks, manage media and channels, and read engagement metrics through BulkPublish's official remote MCP server.",
+  "author": {
+    "name": "BulkPublish",
+    "email": "support@bulkpublish.com",
+    "url": "https://bulkpublish.com"
+  },
+  "homepage": "https://bulkpublish.com",
+  "repository": "https://github.com/bulkpublish/bulkpublish-ai-toolkit",
+  "license": "MIT",
+  "keywords": ["bulkpublish", "bulkpublish mcp", "bulkpublish social media", "bulkpublish scheduler"]
+}

@@ -1,13 +1,14 @@
 {
   "name": "bulkpublish",
   "version": "1.13.0",
-  "description": "Social media automation toolkit \u2014 schedule posts, manage channels, track analytics across 15 platforms via MCP",
+  "description": "Social media automation toolkit — schedule posts, manage channels, track analytics across 15 platforms via MCP",
   "author": {
     "name": "BulkPublish",
+    "email": "support@bulkpublish.com",
     "url": "https://bulkpublish.com"
   },
   "homepage": "https://bulkpublish.com",
-  "repository": "https://github.com/azeemkafridi/bulkpublish-ai-toolkit",
+  "repository": "https://github.com/bulkpublish/bulkpublish-ai-toolkit",
   "license": "MIT",
   "keywords": [
     "social-media",
@@ -17,7 +18,18 @@
     "mcp",
     "publishing"
   ],
-  "mcpServers": "./.mcp.json",
+  "mcpServers": {
+    "bulkpublish": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@bulkpublish/mcp-server@1.33.2"
+      ],
+      "env": {
+        "BULKPUBLISH_API_KEY": "${user_config.api_key}"
+      }
+    }
+  },
   "userConfig": {
     "api_key": {
       "type": "string",
