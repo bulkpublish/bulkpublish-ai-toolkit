@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.14.0 — 2026-10-24
+
+- The Claude Code plugin now connects to the hosted server at
+  `https://mcp.bulkpublish.com/mcp/full` instead of starting the npm package
+  with `npx`. You sign in once in the browser; there is no API key to enter at
+  install time and nothing runs on your machine. It keeps every tool the local
+  server had. `.mcp.json` points at the same address.
+
 ## 1.13.0 — 2026-10-09
 
 - `platform-reference` lists the new post options for X, Bluesky, Mastodon,

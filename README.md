@@ -65,7 +65,7 @@ claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
 /plugin install bulkpublish@bulkpublish-ai-toolkit
 ```
 
-You'll be prompted for your API key during installation.
+Claude Code opens the BulkPublish sign-in the first time you use a tool, where you paste your API key once. Nothing is stored on your machine and no program is installed: the plugin connects to the hosted server, with every tool.
 
 **Option B — Agent Skills:**
 
