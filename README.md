@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**79 MCP tools** in the local server (`npx @bulkpublish/mcp-server@1.33.2`), including interactive MCP Apps widgets. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves the 20-tool `core` profile — channels, posts, media, analytics and the interactive panels — or the 27-tool `inbox` profile, which adds the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches either.
+**79 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.33.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -31,8 +31,8 @@ Every tool carries a title and explicit `readOnlyHint` / `destructiveHint` / `id
 
 ## Prerequisites
 
-- **Node.js 18+** (for running the MCP server via `npx`)
 - **BulkPublish API key** — get one at [app.bulkpublish.com/developer](https://app.bulkpublish.com/developer)
+- **Node.js 18+** only if you run the MCP server locally via `npx` (not needed for the Claude Code plugin or the hosted server)
 
 ---
 
@@ -65,7 +65,11 @@ claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
 /plugin install bulkpublish@bulkpublish-ai-toolkit
 ```
 
-Claude Code opens the BulkPublish sign-in the first time you use a tool, where you paste your API key once. Nothing is stored on your machine and no program is installed: the plugin connects to the hosted server, with every tool.
+The plugin connects to the hosted server with every tool; nothing is installed or run on your machine. To sign in, run `/mcp`, choose **bulkpublish**, then **Authenticate**: a BulkPublish page opens where you paste your API key once. Claude Code keeps the resulting sign-in token, not the key, and you can sign out from the same menu.
+
+Because the server is hosted, it cannot read files on your computer by path. To attach a local file, Claude uploads it directly: `create_media_upload` returns an upload link, the file is sent to it from your machine, and `finalize_media_upload` adds it to your media library. Files at a public URL can still go through `upload_media`.
+
+If you previously added the local server by hand (`claude mcp add bulkpublish -- npx …`), remove it (`claude mcp remove bulkpublish`) so the tools are not listed twice.
 
 **Option B — Agent Skills:**
 
@@ -644,15 +648,15 @@ BulkPublish is available across many platforms:
 ## Network endpoints and credentials
 
 - `mcp.json` (Agent Plugins format, used by Cursor): connects to the hosted server `https://mcp.bulkpublish.com/mcp` over HTTPS and signs in with OAuth. No key is stored in the repo.
-- `.mcp.json` (Grok Build and other clients): runs the pinned `@bulkpublish/mcp-server@1.33.2` locally via `npx`. It reads your key from the `BULKPUBLISH_API_KEY` environment variable and calls only `https://app.bulkpublish.com` with it.
+- `.claude-plugin/plugin.json` and `.mcp.json` (Claude Code plugin, Grok Build and other clients): connect to the hosted server `https://mcp.bulkpublish.com/mcp/full` over HTTPS and sign in with OAuth. Nothing runs locally and no key is read from your machine.
 - Credentials: a BulkPublish API key (starts with `bp_`, created at https://app.bulkpublish.com/developer) or an OAuth sign-in. No other secrets, files, or env vars are read.
 
 ## Privacy Policy
 
-The plugin runs the BulkPublish MCP server on your machine and talks only to
-your BulkPublish account over HTTPS, using the API key you configure. It does
-not read your conversation history, files, or memory, and it sends nothing to
-anyone other than BulkPublish. How BulkPublish collects, uses, retains and
+The plugin connects to BulkPublish's hosted MCP server over HTTPS and acts on
+your BulkPublish account through the sign-in you approve. It does not read your
+conversation history, files, or memory, and it sends nothing to anyone other
+than BulkPublish. How BulkPublish collects, uses, retains and
 shares data, and how to contact us, is described in the
 [BulkPublish Privacy Policy](https://www.bulkpublish.com/privacy/).
 

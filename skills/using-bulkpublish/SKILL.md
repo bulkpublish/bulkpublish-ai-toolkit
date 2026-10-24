@@ -10,10 +10,12 @@ and reads the numbers back. This skill covers the tools available over MCP,
 the shape of a post, what each network accepts, and the mistakes that produce
 a rejected request.
 
-Connect the hosted server at `mcp.bulkpublish.com/mcp` over Streamable HTTP.
-Sign-in is OAuth, so there is no key to paste. To run the server locally
-instead, start `@bulkpublish/mcp-server` over stdio with an API key from
-Settings then Developer in the `BULKPUBLISH_API_KEY` environment variable.
+Connect the hosted server at `mcp.bulkpublish.com/mcp` over Streamable HTTP
+(the Claude Code plugin uses `mcp.bulkpublish.com/mcp/full`, which serves every
+tool). Sign-in is OAuth: a BulkPublish page asks for an API key once, from
+Settings then Developer. To run the server locally instead, start
+`@bulkpublish/mcp-server` over stdio with that key in the `BULKPUBLISH_API_KEY`
+environment variable.
 
 ## How to behave
 
@@ -40,8 +42,9 @@ on real accounts.
 
 ## Tools
 
-The hosted server exposes 20 tools, or 27 where it serves the Inbox and
-comment tools. The local package exposes 79, adding
+The hosted server at `/mcp` exposes 20 tools, or 27 where it serves the Inbox
+and comment tools. `/mcp/full` (the Claude Code plugin) and the local package
+expose 79, adding
 labels, hashtag groups, templates, calendar notes, review and client-connect
 links, channel sets, schedules, RSS autopost and quota.
 
@@ -184,7 +187,13 @@ The platform key for Google Business is `gmb`, not `google_business`.
 ## Media
 
 `upload_media` takes either a public `url` or an absolute `filePath`, not
-both. Attach the returned id through `mediaFileIds`.
+both. `filePath` only works when the server runs on the user's own computer;
+on a hosted server it is refused. To upload a local file there, call
+`create_media_upload` (`contentType`, `sizeBytes`), PUT the file's bytes to the
+returned `uploadUrl` with that same `Content-Type` (for example
+`curl -X PUT -H "Content-Type: image/png" --data-binary @photo.png "<uploadUrl>"`),
+then call `finalize_media_upload` with the returned `r2Key`, `fileName`,
+`mimeType` and `sizeBytes`. Attach the returned id through `mediaFileIds`.
 
 Uploaded media is kept by default. `deleteMediaAfterPublish` defaults to
 **false**, so files stay in the library after their post goes out.

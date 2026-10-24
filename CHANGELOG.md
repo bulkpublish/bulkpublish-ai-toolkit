@@ -4,9 +4,17 @@
 
 - The Claude Code plugin now connects to the hosted server at
   `https://mcp.bulkpublish.com/mcp/full` instead of starting the npm package
-  with `npx`. You sign in once in the browser; there is no API key to enter at
-  install time and nothing runs on your machine. It keeps every tool the local
-  server had. `.mcp.json` points at the same address.
+  with `npx`. Nothing runs on your machine. Sign in once from `/mcp`
+  (bulkpublish → Authenticate) by pasting your API key on the BulkPublish page;
+  there is no key to enter at install time. Every tool the local server had is
+  still there, plus the ones added since 1.33.2. `.mcp.json` points at the same
+  address.
+- Uploading a local file by path (`upload_media` with `filePath`) is not
+  possible on a hosted server. The skills now describe the direct upload
+  (`create_media_upload`, a PUT from your machine, `finalize_media_upload`).
+  Files at a public URL still go through `upload_media`.
+- If you also added the local server by hand with `claude mcp add`, remove it
+  so the tools are not listed twice.
 
 ## 1.13.0 — 2026-10-09
 

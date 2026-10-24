@@ -13,7 +13,12 @@ filePath  (string, optional) — absolute local file path (e.g. /Users/me/photo.
 filename  (string, optional) — override filename, otherwise derived from url/path
 ```
 
-Provide either `url` OR `filePath`, not both.
+Provide either `url` OR `filePath`, not both. `filePath` works only when the
+MCP server runs locally; the hosted server (including the Claude Code plugin)
+refuses it. For a local file on a hosted server: `create_media_upload`
+(`contentType`, `sizeBytes`) → PUT the bytes to `uploadUrl` with the same
+`Content-Type` → `finalize_media_upload` (`r2Key`, `fileName`, `mimeType`,
+`sizeBytes`).
 
 ## Supported formats
 
