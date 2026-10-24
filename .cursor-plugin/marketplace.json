@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "BulkPublish plugins for Cursor — schedule and publish social media posts across 15 networks",
-    "version": "1.14.0"
+    "version": "1.14.1"
   },
   "plugins": [
     {

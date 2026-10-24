@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.14.1 — 2026-10-24
+
+- Claude plugin listing: privacy policy, terms and support links set in
+  `.claude-plugin/plugin.json`, as the plugin directory asked.
+- The `using-bulkpublish` skill no longer describes running the server locally;
+  plugin users connect to the hosted server, and local setup stays in the README.
+
 ## 1.14.0 — 2026-10-24
 
 - The Claude Code plugin now connects to the hosted server at

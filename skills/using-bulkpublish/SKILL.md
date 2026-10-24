@@ -13,9 +13,7 @@ a rejected request.
 Connect the hosted server at `mcp.bulkpublish.com/mcp` over Streamable HTTP
 (the Claude Code plugin uses `mcp.bulkpublish.com/mcp/full`, which serves every
 tool). Sign-in is OAuth: a BulkPublish page asks for an API key once, from
-Settings then Developer. To run the server locally instead, start
-`@bulkpublish/mcp-server` over stdio with that key in the `BULKPUBLISH_API_KEY`
-environment variable.
+Settings then Developer.
 
 ## How to behave
 
