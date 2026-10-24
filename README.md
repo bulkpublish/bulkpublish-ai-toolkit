@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**79 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.33.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
+**79 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.48.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -49,7 +49,7 @@ Three ways to get started — pick what fits your workflow:
 npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit
 
 # 3. MCP Server (any MCP-compatible tool)
-claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
+claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
 ```
 
 ---
@@ -86,7 +86,7 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit --skill schedule-post
 **Option C — MCP only:**
 
 ```bash
-claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
+claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
 ```
 
 Then set your API key:
@@ -115,7 +115,7 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
   "mcpServers": {
     "bulkpublish": {
       "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.33.2"],
+      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
       "env": {
         "BULKPUBLISH_API_KEY": "bp_your_key_here"
       }
@@ -158,7 +158,7 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a cursor
   "mcpServers": {
     "bulkpublish": {
       "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.33.2"],
+      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
       "env": {
         "BULKPUBLISH_API_KEY": "bp_your_key_here"
       }
@@ -196,7 +196,7 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a windsurf
   "mcpServers": {
     "bulkpublish": {
       "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.33.2"],
+      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
       "env": {
         "BULKPUBLISH_API_KEY": "${env:BULKPUBLISH_API_KEY}"
       }
@@ -244,7 +244,7 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a github-copilot
     "servers": {
       "bulkpublish": {
         "command": "npx",
-        "args": ["-y", "@bulkpublish/mcp-server@1.33.2"],
+        "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
         "env": {
           "BULKPUBLISH_API_KEY": "bp_your_key_here"
         }
@@ -281,7 +281,7 @@ gemini extensions install https://github.com/bulkpublish/bulkpublish-ai-toolkit
 **Option A — CLI command:**
 
 ```bash
-gemini mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
+gemini mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
 ```
 
 **Option B — Edit `~/.gemini/settings.json`:**
@@ -291,7 +291,7 @@ gemini mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
   "mcpServers": {
     "bulkpublish": {
       "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.33.2"],
+      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
       "env": {
         "BULKPUBLISH_API_KEY": "$BULKPUBLISH_API_KEY"
       }
@@ -339,7 +339,7 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a codex
 **Option B — CLI command:**
 
 ```bash
-codex mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
+codex mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
 ```
 
 **Option C — Edit `~/.codex/config.toml`:**
@@ -347,7 +347,7 @@ codex mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.33.2
 ```toml
 [mcp_servers.bulkpublish]
 command = "npx"
-args = ["-y", "@bulkpublish/mcp-server@1.33.2"]
+args = ["-y", "@bulkpublish/mcp-server@1.48.2"]
 
 [mcp_servers.bulkpublish.env]
 BULKPUBLISH_API_KEY = "bp_your_key_here"
@@ -485,7 +485,7 @@ Any tool that supports the [Model Context Protocol](https://modelcontextprotocol
 **Stdio transport:**
 ```
 command: npx
-args: -y @bulkpublish/mcp-server@1.33.2
+args: -y @bulkpublish/mcp-server@1.48.2
 env: BULKPUBLISH_API_KEY=bp_your_key_here
 ```
 
@@ -642,7 +642,7 @@ BulkPublish is available across many platforms:
 - [BulkPublish](https://bulkpublish.com) — Main site
 - [API Docs](https://app.bulkpublish.com/docs) — Interactive API reference
 - [Developer Dashboard](https://app.bulkpublish.com/developer) — API keys & usage
-- [MCP Server on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server) — `@bulkpublish/mcp-server@1.33.2`
+- [MCP Server on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server) — `@bulkpublish/mcp-server@1.48.2`
 - [GitHub](https://github.com/azeemkafridi/bulkpublish-api) — SDKs, examples, guides
 
 ## Network endpoints and credentials

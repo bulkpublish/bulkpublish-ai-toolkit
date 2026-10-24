@@ -15,6 +15,8 @@
   Files at a public URL still go through `upload_media`.
 - If you also added the local server by hand with `claude mcp add`, remove it
   so the tools are not listed twice.
+- Local setup examples now use `@bulkpublish/mcp-server@1.48.2`. Earlier
+  versions did not start when launched through `npx`.
 
 ## 1.13.0 — 2026-10-09
 
