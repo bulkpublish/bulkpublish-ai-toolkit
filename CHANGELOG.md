@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.15.0 — 2026-10-29
+
+- Docs follow MCP server 1.49.0: the hosted server now serves 26 tools (32 with
+  the Inbox), adding labels, approvals, channel options, post comments and
+  `update_channel`; the local server serves 80.
+- The `using-bulkpublish` skill explains that `update_post` `channels` is the
+  full list, so dropping a channel from a scheduled post means sending every
+  other channel.
+
 ## 1.14.1 — 2026-10-24
 
 - Claude plugin listing: privacy policy, terms and support links set in

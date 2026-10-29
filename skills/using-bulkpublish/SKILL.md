@@ -40,10 +40,10 @@ on real accounts.
 
 ## Tools
 
-The hosted server at `/mcp` exposes 20 tools, or 27 where it serves the Inbox
+The hosted server at `/mcp` exposes 26 tools, or 32 where it serves the Inbox
 and comment tools. `/mcp/full` (the Claude Code plugin) and the local package
-expose 79, adding
-labels, hashtag groups, templates, calendar notes, review and client-connect
+expose 80, adding
+label management, hashtag groups, templates, calendar notes, review and client-connect
 links, channel sets, schedules, RSS autopost and quota.
 
 **Posts**
@@ -57,11 +57,20 @@ retry_post         retry failed destinations
 delete_post        remove a post
 get_post_metrics   per-post numbers once published
 get_queue_slot     the next free time in the queue
+approve_post       release a post waiting for team approval
+reject_post        send a pending post back to draft, with a reason
 ```
 
 **Channels**
 ```
-list_channels      connected accounts, with ids, platform and health
+list_channels        connected accounts, with ids, platform and health
+get_channel_options  boards, sections, playlists, blogs, Discord channels
+update_channel       X only: turn analytics sync or DM/reply reading on or off
+```
+
+**Labels**
+```
+list_labels        label ids for create_post, update_post and list_posts
 ```
 
 **Media**
@@ -83,7 +92,7 @@ list_conversations     DMs, reviews and comment threads
 get_conversation       messages in one conversation
 reply_to_conversation  send a DM or review reply now (cannot be unsent)
 update_conversation    mark read, archive, snooze, assign
-list_post_comments     comments on a published post
+list_post_comments     comments and reactions on a published post (every server)
 reply_to_comment       public reply under a comment (cannot be unsent)
 moderate_comment       like, hide or delete a comment
 ```
@@ -120,7 +129,12 @@ publishWhenApproved true publishes it the moment it is approved, even past its t
 Notes that catch people out:
 
 - **The label field on create and update is `labels`.** The filter on
-  `list_posts` is `labelId`. They are different names on purpose.
+  `list_posts` is `labelId` (one) or `labelIds` (several). They are different
+  names on purpose.
+- **`update_post` `channels` is the full list, not a diff.** To drop one
+  channel from a scheduled post, read it with `get_post` and send every
+  channel except that one. Channels left out are removed; ones kept keep their
+  publish state, so a published channel is not sent again.
 - **Every thread part is length-checked**, not only the first. An over-long
   part is rejected naming the part number, the platform and its limit. URLs
   count as 23 characters on X and Mastodon and their real length elsewhere.

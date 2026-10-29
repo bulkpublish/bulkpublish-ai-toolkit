@@ -569,8 +569,8 @@ Once connected, just ask your AI assistant in natural language:
 
 ## MCP Tool Reference
 
-The hosted server serves the 20-tool `core` profile marked `*` below (plus the tools marked `+` where it serves the `inbox` profile); the local
-server serves all 79 (the list below shows the main groups; labels, hashtag
+The hosted server serves the 26-tool `core` profile marked `*` below (plus the tools marked `+` where it serves the `inbox` profile); the local
+server serves all 80 (the list below shows the main groups; labels, hashtag
 groups, templates, calendar notes and review/connect links are summarised in
 the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 
@@ -578,10 +578,10 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 <summary>Click to expand full tool list</summary>
 
 **Posts (13):**
-`create_post`*, `update_post`*, `delete_post`*, `list_posts`*, `get_post`*, `publish_post`*, `retry_post`*, `get_post_metrics`*, `get_queue_slot`*, `approve_post`, `reject_post`, `publish_story`, `bulk_posts`
+`create_post`*, `update_post`*, `delete_post`*, `list_posts`*, `get_post`*, `publish_post`*, `retry_post`*, `get_post_metrics`*, `get_queue_slot`*, `approve_post`*, `reject_post`*, `publish_story`, `bulk_posts`
 
-**Channels (4):**
-`list_channels`*, `get_channel_health`, `get_channel_options`, `search_mentions`
+**Channels (5):**
+`list_channels`*, `update_channel`*, `get_channel_health`, `get_channel_options`*, `search_mentions`
 
 **Platforms (1):**
 `list_platforms`
@@ -593,7 +593,7 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 `get_analytics`*
 
 **Labels (4):**
-`list_labels`, `create_label`, `update_label`, `delete_label`
+`list_labels`*, `create_label`, `update_label`, `delete_label`
 
 **Channel sets (4):**
 `list_channel_sets`, `create_channel_set`, `update_channel_set`, `delete_channel_set`
@@ -605,7 +605,7 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 `list_rss_feeds`, `create_rss_feed`, `update_rss_feed`, `delete_rss_feed`
 
 **Inbox and comments (7):**
-`list_conversations`+, `get_conversation`+, `reply_to_conversation`+, `update_conversation`+, `list_post_comments`+, `reply_to_comment`+, `moderate_comment`+
+`list_conversations`+, `get_conversation`+, `reply_to_conversation`+, `update_conversation`+, `list_post_comments`*, `reply_to_comment`+, `moderate_comment`+
 
 **Quota (1):**
 `get_quota_usage`

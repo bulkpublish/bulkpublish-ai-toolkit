@@ -1,6 +1,6 @@
 {
   "name": "bulkpublish",
-  "version": "1.14.1",
+  "version": "1.15.0",
   "description": "Social media automation toolkit — schedule posts, manage channels, track analytics across 15 platforms via MCP",
   "author": {
     "name": "BulkPublish",
