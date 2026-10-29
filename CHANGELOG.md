@@ -8,6 +8,7 @@
 - The `using-bulkpublish` skill explains that `update_post` `channels` is the
   full list, so dropping a channel from a scheduled post means sending every
   other channel.
+  A channel the post has already gone out on cannot be dropped.
 
 ## 1.14.1 — 2026-10-24
 

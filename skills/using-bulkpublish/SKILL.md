@@ -134,7 +134,9 @@ Notes that catch people out:
 - **`update_post` `channels` is the full list, not a diff.** To drop one
   channel from a scheduled post, read it with `get_post` and send every
   channel except that one. Channels left out are removed; ones kept keep their
-  publish state, so a published channel is not sent again.
+  publish state, so a published channel is not sent again. A channel the post
+  has already gone out on cannot be dropped: the update is refused with
+  `CHANNEL_ALREADY_PUBLISHED` and nothing changes.
 - **Every thread part is length-checked**, not only the first. An over-long
   part is rejected naming the part number, the platform and its limit. URLs
   count as 23 characters on X and Mastodon and their real length elsewhere.
