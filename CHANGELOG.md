@@ -9,6 +9,11 @@
   `content-organisation`, `client-review-and-connect` and `rss-to-social`,
   plus 17 skills for planning, writing, adapting, reviewing and reporting on
   content. The list is in `skills/README.md`.
+- **Corrected:** deleting a post is described as it works. Any post can be
+  deleted except one publishing right now; a published post stays live on the
+  platforms, and deleting a post made by a repeat schedule switches that
+  schedule off. The skills used to say only drafts and failed posts could be
+  deleted.
 - **Corrected:** TikTok photo slideshows (1 to 35 images with
   `postTypeOverrides.tiktok: "photo_slideshow"`) are described everywhere; a
   TikTok post is no longer said to need a video. The post-type tables are now
