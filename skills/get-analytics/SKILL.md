@@ -2,6 +2,7 @@
 name: get-analytics
 description: Pull analytics, engagement metrics, and performance data from BulkPublish. Use when the user asks about post performance or engagement.
 ---
+<!-- Generated from skills/src in the bulkpublish-api repository. Edit the source there, not this copy. -->
 
 # BulkPublish — Analytics Reference
 
@@ -11,6 +12,7 @@ description: Pull analytics, engagement metrics, and performance data from BulkP
 |---|---|---|
 | `get_analytics` | Overall summary for a date range | `from`, `to` (ISO dates); optional `channelIds`, `platforms`, `labelIds`, `postFormat`, `mediaType`, `compare` |
 | `get_post_metrics` | Single post engagement | `postId` |
+| `view_analytics` | The same summary as an interactive dashboard | `from`, `to` |
 | `get_quota_usage` | Plan limits and current usage | none |
 | `list_posts` | Find posts to analyze | `status`, `approvalStatus`, `from`, `to`, `channelId`, `search` |
 
@@ -92,7 +94,6 @@ impressions do — it is always `0` for Bluesky and Mastodon.
 ## get_quota_usage response shape
 
 Returns: plan name, limits (channels, posts/day, storage, API calls), current usage for each, subscription status.
-
 ## Patterns
 
 - "How did my posts do this week?" → `get_analytics` with last 7 days

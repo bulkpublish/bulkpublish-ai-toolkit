@@ -2,6 +2,7 @@
 name: check-quota
 description: Check BulkPublish plan limits and current usage. Use when the user asks about their plan, limits, or remaining quota.
 ---
+<!-- Generated from skills/src in the bulkpublish-api repository. Edit the source there, not this copy. -->
 
 # BulkPublish — Quota Reference
 
@@ -20,30 +21,20 @@ subscription  — status, currentPeriodEnd, cancelAtPeriodEnd
 
 ## Plan limits
 
-`-1` in a response means unlimited. `0` means the resource is not available
-on that plan.
+Read the numbers from `get_quota_usage`; do not quote them from memory. Limits
+change with the plan and from time to time, and the response always holds the
+ones that apply to this workspace right now. `-1` means unlimited and `0` means
+the resource is not available on that plan.
 
-| Resource | Free | Pro | Business |
-|---|---|---|---|
-| Channels | 3 | 30 | 75 |
-| Accounts per network | 1 | 2 | 5 |
-| Posts/day | 3 | 30 | unlimited |
-| Posts/month | 30 | 900 | unlimited |
-| Scheduled posts pending | 10 | unlimited | unlimited |
-| Scheduled per day | 3 | 30 | 100 |
-| Storage | 100MB | 2GB | 10GB |
-| API requests/day | 30 | 5,000 | 50,000 |
-| API keys | 1 | 5 | 10 |
-| Repeating schedules | 0 | 10 | unlimited |
-| Labels | 10 | 50 | unlimited |
-| Team members | 1 | 3 | 10 |
-| RSS feeds | 1 | 10 | 50 |
-| RSS auto-publish | no | yes | yes |
+The plans are Free, Lifetime (`ltd`), Pro and Business. What the limits cover:
+connected channels and accounts per network, posts per day and per month,
+scheduled posts waiting and scheduled per day, media storage, API requests per
+day and API keys, repeating schedules, labels, team members, and RSS feeds
+(with whether a feed may publish on its own, which Free cannot).
 
 ## Notes
 
 - Daily limits reset at midnight UTC
 - Storage is cumulative — delete old media with `delete_media` to free space
-- The free plan allows one account per network, so three channels means three different networks
-- `-1` in the response means unlimited
+- When the limits allow one account per network (Free and Lifetime), every channel is on a different network
 - Upgrade at app.bulkpublish.com/settings/billing

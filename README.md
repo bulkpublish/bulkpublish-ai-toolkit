@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**79 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.48.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
+**80 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.48.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -140,10 +140,10 @@ install from it:
 /add-plugin bulkpublish
 ```
 
-The plugin connects to the hosted server at `https://mcp.bulkpublish.com/mcp`.
+The plugin connects to the hosted server at `https://mcp.bulkpublish.com/mcp/full`, with every tool.
 Sign-in is OAuth 2.1 with Dynamic Client Registration and PKCE, so Cursor
-registers itself and there is no client ID or API key to paste. It ships all
-seven skills alongside the tools.
+registers itself and there is no client ID or API key to paste. It ships every
+skill alongside the tools.
 
 **Option B — Agent Skills:**
 
@@ -491,12 +491,21 @@ env: BULKPUBLISH_API_KEY=bp_your_key_here
 
 ---
 
-## Skills (Claude Code Plugin)
+## Skills
 
-If you installed via the Claude Code plugin, you get these skills:
+The Claude Code, Cursor and Gemini plugins and `npx skills add` all install the
+same skills: how to post to each of the 15 networks, schedule and change
+posts, fix failures, run approvals, publish video and stories, set up repeating
+posts and RSS feeds, work with clients, organise labels and templates, read
+analytics, answer the Inbox, and plan, write and review content. In Claude Code
+each one is also a command, such as `/bulkpublish:schedule-post`.
 
-| Skill | Command | Description |
-|---|---|---|
+The full list, with what each one is for, is in [skills/README.md](skills/README.md).
+The skills are written for the full tool set: the plugin, the npm server, and
+`https://mcp.bulkpublish.com/mcp/full`. Connected to `https://mcp.bulkpublish.com/mcp`,
+which serves a shorter set, a few tools they mention are not available.
+
+---|---|---|
 | Platform Reference | `/bulkpublish:platform-reference` | All 15 platforms — post types, media rules, required fields, limits |
 | Schedule Post | `/bulkpublish:schedule-post` | Create and schedule posts with optimal timing, incl. the team approval flow |
 | Get Analytics | `/bulkpublish:get-analytics` | Pull performance reports and engagement data |
@@ -647,7 +656,7 @@ BulkPublish is available across many platforms:
 
 ## Network endpoints and credentials
 
-- `mcp.json` (Agent Plugins format, used by Cursor): connects to the hosted server `https://mcp.bulkpublish.com/mcp` over HTTPS and signs in with OAuth. No key is stored in the repo.
+- `mcp.json` (Agent Plugins format, used by Cursor) and `gemini-extension.json` (Gemini CLI): connect to the hosted server `https://mcp.bulkpublish.com/mcp/full` over HTTPS and sign in with OAuth. No key is stored in the repo.
 - `.claude-plugin/plugin.json` and `.mcp.json` (Claude Code plugin, Grok Build and other clients): connect to the hosted server `https://mcp.bulkpublish.com/mcp/full` over HTTPS and sign in with OAuth. Nothing runs locally and no key is read from your machine.
 - Credentials: a BulkPublish API key (starts with `bp_`, created at https://app.bulkpublish.com/developer) or an OAuth sign-in. No other secrets, files, or env vars are read.
 

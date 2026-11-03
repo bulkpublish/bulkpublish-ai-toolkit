@@ -3,7 +3,7 @@
   "mcpServers": {
     "bulkpublish": {
       "type": "streamable-http",
-      "url": "https://mcp.bulkpublish.com/mcp"
+      "url": "https://mcp.bulkpublish.com/mcp/full"
     }
   }
 }

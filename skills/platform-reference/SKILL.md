@@ -2,16 +2,39 @@
 name: platform-reference
 description: Complete reference for the 15 BulkPublish platforms — post types, media requirements, required fields, character limits, and platformSpecific options. ALWAYS consult before creating posts.
 ---
+<!-- Generated from skills/src in the bulkpublish-api repository. Edit the source there, not this copy. -->
 
 # BulkPublish — Platform Reference
 
 ## Quick Rules
 
-- **YouTube & TikTok** require video — NEVER include them for image-only posts
+- **YouTube** requires a video. **TikTok** requires a video, or 1-35 images with `postTypeOverrides.tiktok: "photo_slideshow"` — never put either on a text-only post
 - **Pinterest** requires a title — set `platformSpecific.pinterest.title`
 - **YouTube** requires a title — set `platformSpecific.youtube.title`
 - **Instagram** defaults to `feed_photo` — set `postTypeOverrides.instagram` for video content
 - Use `platformContent` for shorter text on platforms with low char limits (Bluesky 300, Pinterest/Threads/Mastodon 500)
+
+## Post types at a glance
+
+Every value `postTypeOverrides` accepts; the first is the default.
+
+| Platform | Key | `postTypeOverrides` values |
+|---|---|---|
+| Instagram | `instagram` | `feed_photo`, `feed_video`, `reel`, `story`, `carousel` |
+| Facebook | `facebook` | `post`, `video`, `reel`, `story`, `carousel` |
+| X | `x` | `tweet`, `video`, `thread`, `repost` |
+| TikTok | `tiktok` | `video`, `photo_slideshow` |
+| YouTube | `youtube` | `video`, `short` |
+| Threads | `threads` | `text`, `image`, `video`, `carousel`, `repost` |
+| Bluesky | `bluesky` | `post`, `video`, `thread`, `repost` |
+| LinkedIn | `linkedin` | `post`, `multi_image`, `pdf_carousel`, `article`, `document`, `poll`, `reshare` |
+| Pinterest | `pinterest` | `pin`, `video_pin`, `carousel` |
+| Google Business | `gmb` | `standard`, `event`, `offer` |
+| Mastodon | `mastodon` | `post`, `thread`, `repost` |
+| Discord | `discord` | `post` |
+| Telegram | `telegram` | `post` |
+| Tumblr | `tumblr` | `post` |
+| Snapchat | `snapchat` | `story`, `saved_story`, `spotlight` |
 
 ---
 
@@ -86,7 +109,7 @@ description: Complete reference for the 15 BulkPublish platforms — post types,
 | Field | Value |
 |---|---|
 | Platform key | `x` |
-| Char limit | 280 (25,000 for long posts) |
+| Char limit | 280 (a link counts as 23) |
 | Title required | No |
 
 **Post types:**
@@ -94,7 +117,9 @@ description: Complete reference for the 15 BulkPublish platforms — post types,
 | Type | Media | Notes |
 |---|---|---|
 | `tweet` (default) | 0-4 images OR 0-1 video | Text-only OK. No mixing images+video |
+| `video` | 1 video required | Video post |
 | `thread` | Per-part media | Use `postFormat: "thread"` + `threadParts` |
+| `repost` | None | Reposts (retweets) an existing post; `platformSpecific.x.repostId` = status URL or ID; own text/media ignored |
 
 **platformSpecific options:**
 - `replySettings` — who can reply (single post and first post of a thread)
@@ -148,14 +173,14 @@ description: Complete reference for the 15 BulkPublish platforms — post types,
 | Platform key | `tiktok` |
 | Char limit | 2,200 |
 | Title required | No (uses content) |
-| Video required | **YES** (or images for slideshow) |
+| Video required | A video, or 1-35 images as a `photo_slideshow` |
 
 **Post types:**
 
 | Type | Media | Notes |
 |---|---|---|
 | `video` (default) | 1 video required | Standard video upload |
-| `photo_slideshow` | 1-35 images required | Auto-creates slideshow with music |
+| `photo_slideshow` | 1-35 images, no video | Must be set explicitly: with no type, TikTok images are refused. PNG is converted to JPEG when it publishes. No music unless `autoAddMusic` is true |
 
 **Media specs:** Video max 4GB (mp4/mov), max 1. Image max 20MB (jpg/jpeg/webp), max 35 for slideshow.
 
@@ -167,10 +192,10 @@ description: Complete reference for the 15 BulkPublish platforms — post types,
 - `isAigc` — boolean (AI-generated content disclosure)
 - `thumbnailTimestamp` — number (seconds into the video) for the cover frame
 - `sendToDrafts` — boolean (default false): send a video or photo slideshow to the creator's TikTok drafts instead of publishing; `privacyLevel` is then not required and the direct-post settings are ignored. A video draft carries no caption; the destination ends up `published` with no `platformUrl`
-- `photoCoverIndex` — slideshow cover image, whole number 0-34 (default 0)
-- `autoAddMusic` — boolean, photo posts only
+- `photoCoverIndex` — slideshow cover image, whole number 0-34 counting from 0 in attachment order (default 0; an index past the last image falls back to the first)
+- `autoAddMusic` — boolean (default false), slideshows published directly only: lets TikTok add a recommended track
 
-**IMPORTANT:** TikTok ONLY accepts video (or images for slideshow). Omitted privacy publishes as `PUBLIC_TO_EVERYONE` — ask the user and set `privacyLevel` explicitly.
+**IMPORTANT:** TikTok takes a video, or images only with `postTypeOverrides.tiktok: "photo_slideshow"`. Omitted privacy publishes as `PUBLIC_TO_EVERYONE` — ask the user and set `privacyLevel` explicitly.
 
 ---
 
@@ -210,6 +235,8 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 - `reshareId` — LinkedIn post link or `urn:li:share:` / `urn:li:ugcPost:` ID (activity links are rejected)
 - `thumbnailUrl` — public image URL (up to 10MB), cover for a video post
 - `visibility` — `PUBLIC` (default), `CONNECTIONS` (a Page publishes it as `PUBLIC`), `LOGGED_IN`; `disableReshare` — boolean
+
+**Mentions:** write `@[Acme Corp](urn:li:organization:1337)` (Page) or `@[Jane Doe](urn:li:person:ID)` in `content`. `search_mentions` on a LinkedIn channel takes the Page's URL slug (exact match) and returns the token to paste. Other channels on the same post get plain `@Acme Corp`.
 
 ---
 
@@ -260,11 +287,13 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 | `image` | 1 image required | Photo post |
 | `video` | 1 video required | Video post |
 | `carousel` | 2-20 images/videos | Mixed media OK |
-| `thread` | Per-part | Use `postFormat: "thread"` + `threadParts` |
+| `repost` | None | Reposts an existing post; `platformSpecific.threads.repostId` = numeric post ID; own text/media ignored |
+
+A chain of posts is not a post type here: send `postFormat: "thread"` with `threadParts`.
 
 **Media specs:** Image max 8MB (jpg/png), max 20. Video max 500MB (mp4/mov), max 20, each up to 5 min.
 
-**platformSpecific options:** `quotePostId` — quote another Threads post; `replyControl` — `everyone` (default), `accounts_you_follow`, `mentioned_only`, `parent_post_author_only`, `followers_only`; `pollOptions` — 2-4 strings of 1-25 chars (text-only posts); `linkAttachment` — public http(s) URL for the preview card on a text post (Threads allows at most 5 links in total)
+**platformSpecific options:** `quotePostId` — quote another Threads post; `topicTag` — one topic, no leading `#`, no periods/ampersands; `locationId` — numeric place ID from `get_channel_options` with `q` (only once the channel has granted location tagging); `replyControl` — `everyone` (default), `accounts_you_follow`, `mentioned_only`, `parent_post_author_only`, `followers_only`; `pollOptions` — 2-4 strings of 1-25 chars (text-only posts); `linkAttachment` — public http(s) URL for the preview card on a text post (Threads allows at most 5 links in total)
 
 ---
 
@@ -281,7 +310,9 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 | Type | Media | Notes |
 |---|---|---|
 | `post` (default) | 0-4 images OR 0-1 video | Text-only OK. No mixing. |
+| `video` | 1 video required | Video post |
 | `thread` | Per-part | Use `postFormat: "thread"` + `threadParts` |
+| `repost` | None | Reposts an existing post; `platformSpecific.bluesky.repostId` = bsky.app post URL or `at://` URI; own text/media ignored |
 
 **platformSpecific options:** `replyAllow` — omitted or `[]` = everyone, else `["nobody"]` or any mix of `mention`, `following`, `follower`; `allowQuotes` — boolean (default true); `quoteId` — bsky.app post link or `at://` URI to quote; `langs` — up to 3 language codes; `contentLabel` — `sexual`, `nudity`, `porn` or `graphic-media`
 
@@ -333,6 +364,7 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 |---|---|---|
 | `post` (default) | 0-4 images OR 0-1 video | Text-only OK. No mixing. |
 | `thread` | Per-part | Use `postFormat: "thread"` + `threadParts` |
+| `repost` | None | Boosts an existing post; `platformSpecific.mastodon.repostId` = status URL or ID; own text/media ignored |
 
 **Media specs:** Image max 16MB (jpg/png/webp/avif/gif), max 4. Video max 99MB (mp4 only), max 1 (Mastodon sets no length limit).
 
@@ -367,7 +399,7 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 
 | Option | Notes |
 |---|---|
-| `channelId` | **REQUIRED.** The target Discord *text channel* snowflake — **not** the BulkPublish channel id used as the outer key. List postable channels via `GET /api/channels/{id}/options`. |
+| `channelId` | **REQUIRED.** The target Discord *text channel* snowflake — **not** the BulkPublish channel id used as the outer key. List postable channels with `get_channel_options`. |
 | `silent`, `pin`, `startThread`, `threadName`, `buttons`, `embed`, `poll`, `tags` | Optional: notification suppression, pinning, a thread from the message, up to 5 link buttons, a rich embed, a native poll (2-10 answers), up to 5 forum tag IDs. Pins and polls need the bot's Pin Messages and Send Polls permissions. |
 
 **Gotchas:** publishing uses a **global bot token**, not the per-user OAuth token. A failure is therefore never a re-authentication problem — reconnecting will not fix it and the channel is never flagged `needs_reconnect`. The real causes are permissions: the bot lacks access to the channel, cannot send messages there, or the channel was deleted.
@@ -429,25 +461,29 @@ The two run on separate LinkedIn apps (company pages use the Community Managemen
 | Field | Value |
 |---|---|
 | Platform key | `snapchat` |
-| Char limit | 160 (Spotlight description only) |
+| Char limit | 160 (Spotlight description / Saved Story title fallback only) |
 | Title required | No |
 
-**Post types:** `story` (default), `saved_story`, `spotlight`.
+**Post types** (set via `postTypeOverrides.snapchat`):
 
-**Media specs:** every Snapchat post requires exactly ONE media file — a jpg/png image or an mp4 video. Spotlight is **video-only**, 6-60 seconds.
+| Type | Media | Notes |
+|---|---|---|
+| `story` (default) | exactly 1 image or video | The caption is NOT sent to Snapchat — plain stories carry no text. |
+| `saved_story` | exactly 1 image or video | Title max 45 chars; defaults to the first line of the caption, truncated. |
+| `spotlight` | 1 video only, 6–60s | Caption becomes the description (max 160 chars, truncated); hashtags are clickable. |
 
-**Caption handling:** plain stories carry NO text — the caption is only used as the Spotlight description (160 chars) and as a saved-story title fallback.
+**Media specs:** exactly ONE file per post. Images jpg/png; videos mp4/mov, vertical, max 1GB. Story video 5–60s, Spotlight 6–60s; Saved Story video is not length-checked.
 
-**platformSpecific** — a flat object applies to every Snapchat channel, or key options by **channel ID** (like Tumblr):
+**platformSpecific** — keyed by **channel ID** (a flat object applies to every Snapchat channel):
 
 ```json
-{"platformSpecific": {"snapchat": {"title": "My saved story", "locale": "en_US", "saveToProfile": true}}}
+{"platformSpecific": {"snapchat": {"12": {"title": "Behind the scenes", "locale": "en_US", "saveToProfile": true}}}}
 ```
 
 | Option | Notes |
 |---|---|
-| `title` | Saved-story title, max 45 chars. Falls back to the caption when omitted. |
-| `locale` | Spotlight only. Defaults to `en_US`. |
-| `saveToProfile` | Spotlight only. Defaults to `true`. |
+| `title` | Saved Story title, max 45 chars. Defaults to the caption's first line, truncated. |
+| `locale` | Spotlight locale. Default `en_US`. |
+| `saveToProfile` | Spotlight only. Default `true`; `false` sends `skip_save_to_profile`. |
 
-**Gotchas:** no first comments (`_firstComment` is unsupported and recorded as failed; the main post still publishes) and no comment reading/engagement.
+**Gotchas:** `_firstComment` is NOT supported. Engagement (individual comments/reactions) is not readable. Metrics ARE reported: impressions, reach, likes, comments, shares, clicks, video views.

@@ -2,6 +2,7 @@
 name: using-bulkpublish
 description: Schedule, publish and analyse social media posts across 15 networks through BulkPublish. Use whenever the user wants to draft, queue, cross-post, retry or measure social content, or asks about their channels, queue or posting quota.
 ---
+<!-- Generated from skills/src in the bulkpublish-api repository. Edit the source there, not this copy. -->
 
 # Working with BulkPublish
 
@@ -140,8 +141,9 @@ Notes that catch people out:
 - **Every thread part is length-checked**, not only the first. An over-long
   part is rejected naming the part number, the platform and its limit. URLs
   count as 23 characters on X and Mastodon and their real length elsewhere.
-- **YouTube and TikTok require video.** Do not include them in an
-  image-only post.
+- **YouTube requires a video; TikTok a video, or 1-35 images with
+  `postTypeOverrides.tiktok: "photo_slideshow"`.** Neither goes on a
+  text-only post, and TikTok images with no post type are refused.
 - **Instagram defaults to `feed_photo`.** For video, set `postTypeOverrides`
   to `reel` or `feed_video`, or the post is rejected.
 
@@ -178,23 +180,43 @@ approver passes `whenLate: "publish"` to `approve_post` (`"hold"` forces draft).
 
 ## Networks
 
-| Network | Characters | Threads | Post types |
-|---|---|---|---|
-| X | 280 | yes | tweet |
-| Instagram | 2,200 | no | feed_photo, feed_video, reel, story, carousel |
-| Facebook | 63,206 | no | post, reel, story |
-| LinkedIn | 3,000 | no | post, multi_image, pdf_carousel, article |
-| Threads | 500 | yes | text, image, video, carousel |
-| Bluesky | 300 | yes | post |
-| Mastodon | 500 | yes | post |
-| TikTok | 2,200 | no | video, photo_slideshow |
-| YouTube | 5,000 | no | video, short |
-| Pinterest | 500 | no | pin, video_pin, carousel |
-| Google Business | 1,500 | no | standard, event, offer |
-| Discord | 2,000 | no | post |
-| Telegram | 4,096 | no | post |
-| Tumblr | 32,768 | no | post |
-| Snapchat | 160 | no | story, saved_story, spotlight |
+| Network | Characters | Threads |
+|---|---|---|
+| X | 280 | yes |
+| Instagram | 2,200 | no |
+| Facebook | 63,206 | no |
+| LinkedIn | 3,000 | no |
+| Threads | 500 | yes |
+| Bluesky | 300 | yes |
+| Mastodon | 500 | yes |
+| TikTok | 2,200 | no |
+| YouTube | 5,000 | no |
+| Pinterest | 500 | no |
+| Google Business | 1,500 | no |
+| Discord | 2,000 | no |
+| Telegram | 4,096 | no |
+| Tumblr | 32,768 | no |
+| Snapchat | 160 | no |
+
+Post types, from the server's own schema (the first is the default):
+
+| Platform | Key | `postTypeOverrides` values |
+|---|---|---|
+| Instagram | `instagram` | `feed_photo`, `feed_video`, `reel`, `story`, `carousel` |
+| Facebook | `facebook` | `post`, `video`, `reel`, `story`, `carousel` |
+| X | `x` | `tweet`, `video`, `thread`, `repost` |
+| TikTok | `tiktok` | `video`, `photo_slideshow` |
+| YouTube | `youtube` | `video`, `short` |
+| Threads | `threads` | `text`, `image`, `video`, `carousel`, `repost` |
+| Bluesky | `bluesky` | `post`, `video`, `thread`, `repost` |
+| LinkedIn | `linkedin` | `post`, `multi_image`, `pdf_carousel`, `article`, `document`, `poll`, `reshare` |
+| Pinterest | `pinterest` | `pin`, `video_pin`, `carousel` |
+| Google Business | `gmb` | `standard`, `event`, `offer` |
+| Mastodon | `mastodon` | `post`, `thread`, `repost` |
+| Discord | `discord` | `post` |
+| Telegram | `telegram` | `post` |
+| Tumblr | `tumblr` | `post` |
+| Snapchat | `snapchat` | `story`, `saved_story`, `spotlight` |
 
 The platform key for Google Business is `gmb`, not `google_business`.
 

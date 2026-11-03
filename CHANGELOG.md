@@ -1,5 +1,30 @@
 # Changelog
 
+## 1.16.0 — 2026-11-03
+
+- **33 skills, up from 8.** The plugin now ships every skill the BulkPublish
+  connectors use, from one source shared with the ChatGPT plugin, so the two
+  can no longer disagree. New: `fix-failed-posts`, `manage-scheduled-posts`,
+  `post-approvals`, `video-publishing`, `recurring-posts`,
+  `content-organisation`, `client-review-and-connect` and `rss-to-social`,
+  plus 17 skills for planning, writing, adapting, reviewing and reporting on
+  content. The list is in `skills/README.md`.
+- **Corrected:** TikTok photo slideshows (1 to 35 images with
+  `postTypeOverrides.tiktok: "photo_slideshow"`) are described everywhere; a
+  TikTok post is no longer said to need a video. The post-type tables are now
+  read from the server's own schema, so X, Facebook, LinkedIn, Threads and
+  Bluesky list every type they take (several were missing). Threads chains are
+  made with `postFormat: "thread"`, not a post type.
+- **Corrected:** `check-quota` no longer carries a table of plan limits, which
+  had fallen behind (Free is now 1 post a day, and Lifetime was missing). It
+  reads the live figures from `get_quota_usage`.
+- **Corrected:** RSS feeds are checked every 60, 60, 30 or 15 minutes on Free,
+  Lifetime, Pro and Business, and capped at 1, 3, 10 and 50 feeds.
+- Cursor (`mcp.json`) and the Gemini CLI extension now connect to
+  `https://mcp.bulkpublish.com/mcp/full`, like the Claude Code plugin, because
+  the skills they ship are written for the full tool set.
+- The skill files are generated: edit them in `bulkpublish-api/skills/src`.
+
 ## 1.15.0 — 2026-10-29
 
 - Docs follow MCP server 1.49.0: the hosted server now serves 26 tools (32 with
