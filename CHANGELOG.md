@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.16.1 — 2026-11-05
+
+- **Auto-connect for organizations.** The hosted server now supports
+  enterprise-managed authorization: on Claude Team and Enterprise, a
+  BulkPublish workspace owner can trust the organization's issuer and members
+  are connected without signing in or pasting a key. The README's hosted-server
+  section and the `using-bulkpublish` skill say so, including what to check when
+  one person is still asked for a key.
+
 ## 1.16.0 — 2026-11-03
 
 - **33 skills, up from 8.** The plugin now ships every skill the BulkPublish

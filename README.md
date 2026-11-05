@@ -378,6 +378,12 @@ authenticates two ways:
 - **OAuth 2.1 (recommended).** Add the URL as a custom connector and the host
   walks you through the consent screen, where you paste your `bp_` API key once.
   No key ever lives in the connector's URL.
+- **Auto-connect, for organizations.** On Claude Team and Enterprise, the
+  BulkPublish workspace owner can trust the organization's Claude issuer (or its
+  identity provider) under Settings → MCP Auto-connect, and an organization
+  Owner turns on auto-connect for BulkPublish in Claude. Members are then
+  connected as themselves with no consent screen and no key, matched by their
+  verified email address in the workspace.
 - **Key in the URL,** for hosts that don't do OAuth:
   `https://mcp.bulkpublish.com/mcp?key=bp_your_key_here`. Treat that URL as a
   secret — anyone holding it holds your API key.
