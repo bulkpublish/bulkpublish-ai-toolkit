@@ -380,7 +380,7 @@ authenticates two ways:
   No key ever lives in the connector's URL.
 - **Auto-connect, for organizations.** On Claude Team and Enterprise, the
   BulkPublish workspace owner can trust the organization's Claude issuer (or its
-  identity provider) under Settings → MCP Auto-connect, and an organization
+  identity provider) under API → MCP Auto-connect, and an organization
   Owner turns on auto-connect for BulkPublish in Claude. Members are then
   connected as themselves with no consent screen and no key, matched by their
   verified email address in the workspace.
