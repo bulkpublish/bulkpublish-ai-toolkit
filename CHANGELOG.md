@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.16.2 — 2026-11-09
+
+- **Snapchat options in the platform reference.** Story and Spotlight posts can carry
+  a link sticker (`link`, `linkStickerText`, `linkStickerPosition`) and on-screen text
+  (`overlayText`, `overlayPosition`), and a Story can stay up 1, 2, 3 or 7 days
+  (`storyDurationDays`). `saveToProfile` is marked as having no effect.
+
 ## 1.16.1 — 2026-11-05
 
 - **Auto-connect for organizations.** The hosted server now supports
