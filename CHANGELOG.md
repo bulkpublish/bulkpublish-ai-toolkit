@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.16.3 — 2026-11-13
+
+- **X takes up to 20 images per post.** The platform reference now lists 0-20 images
+  for an X `tweet` (and each thread part), up from 4. Up to 4 show as a grid on X;
+  5 or more scroll sideways. One video and no mixing are unchanged.
+
 ## 1.16.2 — 2026-11-09
 
 - **Snapchat options in the platform reference.** Story and Spotlight posts can carry
