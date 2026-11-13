@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.16.4 — 2026-11-13
+
+- **Snapchat sticker options.** The platform reference now says sticker text and
+  position are ignored without a `link`, rather than that they need one.
+
 ## 1.16.3 — 2026-11-13
 
 - **X takes up to 20 images per post.** The platform reference now lists 0-20 images
