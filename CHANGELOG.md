@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.17.0 — 2026-11-16
+
+- **Per-platform media.** `schedule-post` and `manage-scheduled-posts` describe
+  `platformMediaFileIds`: attach every file, then say which ones each platform
+  publishes, e.g. `{"x": [12], "linkedin": []}`. A platform that is not listed
+  gets all of them; an empty list posts it without media.
+- **Templates can keep a post setup.** `content-organisation` no longer says
+  templates are text only: a caption template can also keep channels, format,
+  post types, media and per-platform media and text, and lists its files in
+  `media`. Starting a post from one passes that setup on to `create_post`.
+
 ## 1.16.4 — 2026-11-13
 
 - **Snapchat sticker options.** The platform reference now says sticker text and
