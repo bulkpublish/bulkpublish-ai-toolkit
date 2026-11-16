@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.17.1 — 2026-11-16
+
+- **Repeat schedules choose media per platform.** `recurring-posts` lists
+  `platformMediaFileIds`: which of the schedule's files each platform gets on
+  every run. A platform that is not listed gets all of them.
+- **Templates cannot start as a thread.** `content-organisation` says a
+  template's `postFormat` is never `thread`, and that empty text is only
+  allowed when the setup holds something.
+
 ## 1.17.0 — 2026-11-16
 
 - **Per-platform media.** `schedule-post` and `manage-scheduled-posts` describe

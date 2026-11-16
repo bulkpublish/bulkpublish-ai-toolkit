@@ -10,7 +10,7 @@
   "plugins": [
     {
       "name": "bulkpublish",
-      "version": "1.17.0",
+      "version": "1.17.1",
       "description": "Schedule posts, manage channels, track analytics across 15 social platforms from any AI assistant",
       "author": {
         "name": "BulkPublish",
