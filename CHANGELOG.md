@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.18.0 — 2026-11-19
+
+- **Two more analytics tools.** `get_account_analytics` (daily followers,
+  impressions, reach and profile views per channel) and
+  `get_engagement_analytics` (engagement across posts, per platform and per
+  day, with a top-posts ranking). The local server and `/mcp/full` serve 82.
+- **Instagram carousels take 2 to 20 items**, images, videos or a mix.
+  `platform-reference` and `bulk-publish` say so.
+- **An AI info label for Instagram and Threads.** `platform-reference` lists
+  `isAiGenerated`, to be set only when the user says the content was made
+  with AI.
+- `video-publishing` and `platform-reference` note that TikTok may show its
+  own default description on a video sent to drafts.
+
 ## 1.17.1 — 2026-11-16
 
 - **Repeat schedules choose media per platform.** `recurring-posts` lists

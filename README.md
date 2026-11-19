@@ -4,14 +4,14 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**80 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.48.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
+**82 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.48.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
 | **Posts** | 13 | Create, update, get, list, publish, retry, delete, approve, reject, story, bulk actions, metrics, queue slot |
 | **Channels** | 5 | List accounts, platforms, health check, platform options, @mention search |
 | **Media** | 10 | Upload (URL/file), list, get, alt text, delete, presigned and chunked uploads |
-| **Analytics** | 1 | Summary by date range with per-platform breakdown |
+| **Analytics** | 3 | Summary by date range with per-platform breakdown, account growth snapshots, and engagement across posts with a top-posts ranking |
 | **Labels, hashtag groups, templates, calendar notes** | 16 | Create, list, update, delete each |
 | **Client review & connect links** | 8 | Share/unshare a post, batch review links, client connect links |
 | **Schedules, channel sets, RSS autopost** | 12 | Create, list, update, delete each |
@@ -585,7 +585,7 @@ Once connected, just ask your AI assistant in natural language:
 ## MCP Tool Reference
 
 The hosted server serves the 26-tool `core` profile marked `*` below (plus the tools marked `+` where it serves the `inbox` profile); the local
-server serves all 80 (the list below shows the main groups; labels, hashtag
+server serves all 82 (the list below shows the main groups; labels, hashtag
 groups, templates, calendar notes and review/connect links are summarised in
 the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 
@@ -604,8 +604,8 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 **Media (9):**
 `upload_media`*, `list_media`*, `create_media_upload`*, `finalize_media_upload`*, `get_media`, `delete_media`, `create_multipart_upload`, `complete_multipart_upload`, `abort_multipart_upload`
 
-**Analytics (1):**
-`get_analytics`*
+**Analytics (3):**
+`get_analytics`*, `get_account_analytics`, `get_engagement_analytics`
 
 **Labels (4):**
 `list_labels`*, `create_label`, `update_label`, `delete_label`
