@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**82 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the local server (`npx @bulkpublish/mcp-server@1.48.2`). The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
+**82 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the [`@bulkpublish/mcp-server`](https://www.npmjs.com/package/@bulkpublish/mcp-server) package run on your own machine. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -31,26 +31,27 @@ Every tool carries a title and explicit `readOnlyHint` / `destructiveHint` / `id
 
 ## Prerequisites
 
-- **BulkPublish API key** — get one at [app.bulkpublish.com/developer](https://app.bulkpublish.com/developer)
-- **Node.js 18+** only if you run the MCP server locally via `npx` (not needed for the Claude Code plugin or the hosted server)
+- **A BulkPublish account.** You sign in from your AI tool: a BulkPublish page asks for an API key once (get one at [app.bulkpublish.com/developer](https://app.bulkpublish.com/developer)), and the tool keeps a sign-in token, not the key.
+- Nothing to install. Every setup below connects to BulkPublish's hosted server.
 
 ---
 
 ## Quick Install
 
-Three ways to get started — pick what fits your workflow:
+**Claude Code plugin** (recommended: auto-updates and includes the skills):
 
 ```bash
-# 1. Claude Code Plugin (recommended — auto-updates, includes skills)
 /plugin marketplace add bulkpublish/bulkpublish-ai-toolkit
 /plugin install bulkpublish@bulkpublish-ai-toolkit
-
-# 2. Agent Skills (works with 41+ agents — Claude Code, Cursor, Codex, Copilot, etc.)
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit
-
-# 3. MCP Server (any MCP-compatible tool)
-claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
 ```
+
+**Any other MCP client:** add the hosted server and sign in when prompted.
+
+```
+https://mcp.bulkpublish.com/mcp
+```
+
+Each tool's exact config shape is under [Setup by Tool](#setup-by-tool).
 
 ---
 
@@ -69,33 +70,9 @@ The plugin connects to the hosted server with every tool; nothing is installed o
 
 Because the server is hosted, it cannot read files on your computer by path. To attach a local file, Claude uploads it directly: `create_media_upload` returns an upload link, the file is sent to it from your machine, and `finalize_media_upload` adds it to your media library. Files at a public URL can still go through `upload_media`.
 
-If you previously added the local server by hand (`claude mcp add bulkpublish -- npx …`), remove it (`claude mcp remove bulkpublish`) so the tools are not listed twice.
+If you previously added a local BulkPublish server by hand, remove it (`claude mcp remove bulkpublish`) so the tools are not listed twice.
 
-**Option B — Agent Skills:**
-
-```bash
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit
-```
-
-Or install a single skill:
-
-```bash
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit --skill schedule-post
-```
-
-**Option C — MCP only:**
-
-```bash
-claude mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
-```
-
-Then set your API key:
-
-```bash
-export BULKPUBLISH_API_KEY=bp_your_key_here
-```
-
-**Option D — hosted server, no key on disk (recommended for MCP-only use):**
+**Option B — hosted server only, without the skills:**
 
 ```bash
 claude mcp add --transport http bulkpublish https://mcp.bulkpublish.com/mcp
@@ -108,23 +85,9 @@ that client alone and you can revoke it from your account at any time.
 
 ### Claude Desktop
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
-
-```json
-{
-  "mcpServers": {
-    "bulkpublish": {
-      "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
-      "env": {
-        "BULKPUBLISH_API_KEY": "bp_your_key_here"
-      }
-    }
-  }
-}
-```
-
-Restart Claude Desktop to activate.
+Open **Settings → Connectors → Add custom connector**, name it BulkPublish, enter
+`https://mcp.bulkpublish.com/mcp`, and sign in when prompted. Nothing is
+installed and no key is written to a config file.
 
 ---
 
@@ -145,29 +108,7 @@ Sign-in is OAuth 2.1 with Dynamic Client Registration and PKCE, so Cursor
 registers itself and there is no client ID or API key to paste. It ships every
 skill alongside the tools.
 
-**Option B — Agent Skills:**
-
-```bash
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a cursor
-```
-
-**Option C — MCP config.** Create or edit `.cursor/mcp.json` in your project root (or globally at `~/.cursor/mcp.json`):
-
-```json
-{
-  "mcpServers": {
-    "bulkpublish": {
-      "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
-      "env": {
-        "BULKPUBLISH_API_KEY": "bp_your_key_here"
-      }
-    }
-  }
-}
-```
-
-**Option D — hosted server, no key on disk.** `.cursor/mcp.json`:
+**Option B — hosted server only.** `.cursor/mcp.json` in your project root (or globally at `~/.cursor/mcp.json`):
 
 ```json
 {
@@ -183,38 +124,8 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a cursor
 
 ### Windsurf
 
-**Option A — Agent Skills:**
-
-```bash
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a windsurf
-```
-
-**Option B — MCP config.** Edit `~/.codeium/windsurf/mcp_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "bulkpublish": {
-      "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
-      "env": {
-        "BULKPUBLISH_API_KEY": "${env:BULKPUBLISH_API_KEY}"
-      }
-    }
-  }
-}
-```
-
-Set your key in your shell environment:
-
-```bash
-export BULKPUBLISH_API_KEY=bp_your_key_here
-```
-
-Or hardcode it directly in the `env` block above.
-
-**Option C — hosted server, no key on disk.** Windsurf uses `serverUrl` for
-remote servers, not `url`. In `~/.codeium/windsurf/mcp_config.json`:
+Windsurf uses `serverUrl` for remote servers, not `url`. In
+`~/.codeium/windsurf/mcp_config.json`:
 
 ```json
 {
@@ -230,32 +141,7 @@ remote servers, not `url`. In `~/.codeium/windsurf/mcp_config.json`:
 
 ### VS Code (GitHub Copilot)
 
-**Option A — Agent Skills:**
-
-```bash
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a github-copilot
-```
-
-**Option B — MCP config.** Add to your VS Code `settings.json` (Cmd+Shift+P > "Preferences: Open User Settings (JSON)"):
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "bulkpublish": {
-        "command": "npx",
-        "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
-        "env": {
-          "BULKPUBLISH_API_KEY": "bp_your_key_here"
-        }
-      }
-    }
-  }
-}
-```
-
-**Option C — hosted server, no key on disk.** VS Code's key is `servers`, not
-`mcpServers`. In `.vscode/mcp.json`:
+VS Code's key is `servers`, not `mcpServers`. In `.vscode/mcp.json`:
 
 ```json
 {
@@ -278,35 +164,7 @@ npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a github-copilot
 gemini extensions install https://github.com/bulkpublish/bulkpublish-ai-toolkit
 ```
 
-**Option A — CLI command:**
-
-```bash
-gemini mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
-```
-
-**Option B — Edit `~/.gemini/settings.json`:**
-
-```json
-{
-  "mcpServers": {
-    "bulkpublish": {
-      "command": "npx",
-      "args": ["-y", "@bulkpublish/mcp-server@1.48.2"],
-      "env": {
-        "BULKPUBLISH_API_KEY": "$BULKPUBLISH_API_KEY"
-      }
-    }
-  }
-}
-```
-
-Set your key:
-
-```bash
-export BULKPUBLISH_API_KEY=bp_your_key_here
-```
-
-**Option C — hosted server, no key on disk:**
+**Or add the hosted server on its own:**
 
 ```bash
 gemini mcp add --transport http bulkpublish https://mcp.bulkpublish.com/mcp
@@ -330,31 +188,7 @@ connect:
 
 ### OpenAI Codex CLI
 
-**Option A — Agent Skills:**
-
-```bash
-npx skills@1.7.0 add bulkpublish/bulkpublish-ai-toolkit -a codex
-```
-
-**Option B — CLI command:**
-
-```bash
-codex mcp add bulkpublish -- npx -y @bulkpublish/mcp-server@1.48.2
-```
-
-**Option C — Edit `~/.codex/config.toml`:**
-
-```toml
-[mcp_servers.bulkpublish]
-command = "npx"
-args = ["-y", "@bulkpublish/mcp-server@1.48.2"]
-
-[mcp_servers.bulkpublish.env]
-BULKPUBLISH_API_KEY = "bp_your_key_here"
-```
-
-**Option D — hosted server, no key on disk.** `codex mcp add` covers stdio
-servers only, so this one is edited into `~/.codex/config.toml`:
+In `~/.codex/config.toml`:
 
 ```toml
 [mcp_servers.bulkpublish]
@@ -365,15 +199,16 @@ url = "https://mcp.bulkpublish.com/mcp"
 
 ### Hosted server (ChatGPT, claude.ai, and other web hosts)
 
-Web-based hosts can't spawn a local process, so they need a remote HTTP endpoint
-instead of the `npx` stdio setups above. BulkPublish hosts one:
+Web-based hosts can't start a local process, so they need a remote HTTP
+endpoint. BulkPublish hosts one, and every setup above uses it:
 
 ```
 https://mcp.bulkpublish.com/mcp
 ```
 
-It serves the same tool suite as the stdio server over Streamable HTTP, and
-authenticates two ways:
+It serves the publishing tool suite over Streamable HTTP
+(`https://mcp.bulkpublish.com/mcp/full` serves every tool), and authenticates
+these ways:
 
 - **OAuth 2.1 (recommended).** Add the URL as a custom connector and the host
   walks you through the consent screen, where you paste your `bp_` API key once.
@@ -463,8 +298,7 @@ Add a custom MCP server called BulkPublish at https://mcp.bulkpublish.com/mcp
 
 Confirm the name and address it shows back, then click **Authorize** on the
 connect card and sign in. Type `@` in a chat to attach BulkPublish. Grok Bot
-only reaches public HTTPS servers, which the hosted one is. It cannot run the
-local npx server.
+only reaches public HTTPS servers, which the hosted one is.
 
 ---
 
@@ -486,21 +320,18 @@ that, ask it to post, schedule, or read your analytics in plain language.
 
 ### Other MCP-Compatible Tools
 
-Any tool that supports the [Model Context Protocol](https://modelcontextprotocol.io) can connect to BulkPublish. The general pattern:
+Any tool that supports the [Model Context Protocol](https://modelcontextprotocol.io) and remote servers can connect to BulkPublish: add `https://mcp.bulkpublish.com/mcp` as a Streamable HTTP server and sign in when prompted.
 
-**Stdio transport:**
-```
-command: npx
-args: -y @bulkpublish/mcp-server@1.48.2
-env: BULKPUBLISH_API_KEY=bp_your_key_here
-```
+**Running the server on your own machine** is possible too, for tools that only
+start local servers. Follow the setup on the package's own page,
+[`@bulkpublish/mcp-server` on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server). The hosted server is
+simpler and keeps no key on your disk.
 
 ---
 
 ## Skills
 
-The Claude Code, Cursor and Gemini plugins and `npx skills add` all install the
-same skills: how to post to each of the 15 networks, schedule and change
+The Claude Code, Cursor and Gemini plugins all install the same skills: how to post to each of the 15 networks, schedule and change
 posts, fix failures, run approvals, publish video and stories, set up repeating
 posts and RSS feeds, work with clients, organise labels and templates, read
 analytics, answer the Inbox, and plan, write and review content. In Claude Code
@@ -511,13 +342,9 @@ The skills are written for the full tool set: the plugin, the npm server, and
 `https://mcp.bulkpublish.com/mcp/full`. Connected to `https://mcp.bulkpublish.com/mcp`,
 which serves a shorter set, a few tools they mention are not available.
 
----|---|---|
-| Platform Reference | `/bulkpublish:platform-reference` | All 15 platforms — post types, media rules, required fields, limits |
-| Schedule Post | `/bulkpublish:schedule-post` | Create and schedule posts with optimal timing, incl. the team approval flow |
-| Get Analytics | `/bulkpublish:get-analytics` | Pull performance reports and engagement data |
-| Manage Channels | `/bulkpublish:manage-channels` | View connected accounts, channel sets, and troubleshoot issues |
-| Bulk Publish | `/bulkpublish:bulk-publish` | Upload media (multipart for videos up to 1GB) and publish posts in batch |
-| Check Quota | `/bulkpublish:check-quota` | View plan limits and current usage |
+The `skills/` folder follows the [Agent Skills](https://agentskills.io) format,
+so other agents can use it too: point your agent's own skills installer at
+`bulkpublish/bulkpublish-ai-toolkit`, as its documentation describes.
 
 ---
 
@@ -640,9 +467,9 @@ BulkPublish is available across many platforms:
 
 | Integration | Install |
 |---|---|
-| **Node.js SDK** | `npm install bulkpublish` |
-| **Python SDK** | `pip install bulkpublish` |
-| **Homebrew CLI** | `brew tap azeemkafridi/bulkpublish && brew install bulkpublish` |
+| **Node.js SDK** | [`bulkpublish` on npm](https://www.npmjs.com/package/bulkpublish) |
+| **Python SDK** | [`bulkpublish` on PyPI](https://pypi.org/project/bulkpublish/) |
+| **Homebrew CLI** | [azeemkafridi/homebrew-bulkpublish](https://github.com/azeemkafridi/homebrew-bulkpublish) |
 | **Zapier** | [Search "BulkPublish" in Zapier](https://zapier.com/apps/bulkpublish) |
 | **n8n** | `n8n-nodes-bulkpublish` (Community Nodes) |
 | **Make.com** | Search "BulkPublish" in Make |
@@ -657,7 +484,7 @@ BulkPublish is available across many platforms:
 - [BulkPublish](https://bulkpublish.com) — Main site
 - [API Docs](https://app.bulkpublish.com/docs) — Interactive API reference
 - [Developer Dashboard](https://app.bulkpublish.com/developer) — API keys & usage
-- [MCP Server on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server) — `@bulkpublish/mcp-server@1.48.2`
+- [MCP Server on npm](https://www.npmjs.com/package/@bulkpublish/mcp-server) — `@bulkpublish/mcp-server`, to run the server on your own machine
 - [GitHub](https://github.com/azeemkafridi/bulkpublish-api) — SDKs, examples, guides
 
 ## Network endpoints and credentials

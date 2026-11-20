@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.18.1 — 2026-11-20
+
+- **Every setup in the README now uses the hosted server with sign-in.**
+  Nothing is installed and no API key is kept in a config file or read from
+  your environment. The examples that started a package with `npx` and passed
+  `BULKPUBLISH_API_KEY` are gone; to run the server on your own machine,
+  follow the instructions on the `@bulkpublish/mcp-server` npm page. Claude
+  Desktop now adds BulkPublish as a custom connector.
+- Install commands for the SDKs and the CLI are replaced with links to their
+  own pages, and Agent Skills point to your agent's own skills installer.
+
 ## 1.18.0 — 2026-11-19
 
 - **Two more analytics tools.** `get_account_analytics` (daily followers,
