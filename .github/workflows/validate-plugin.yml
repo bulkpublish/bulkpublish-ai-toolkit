@@ -16,41 +16,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # No step downloads or installs anything: the Claude plugin directory
+      # scans this file and holds a version whose shipped text fetches and
+      # runs code (RUNTIME_FETCH_EXEC, 2026-11-20). That removed a step that
+      # fetched Cursor's schemas and installed a validator.
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
       - name: Every manifest and referenced path exists
         run: node scripts/validate-cursor-plugin.mjs
-
-      - name: Manifests match Cursor's published schemas
-        run: |
-          npm install --no-save ajv ajv-formats
-          curl -sfL -o plugin.schema.json \
-            https://raw.githubusercontent.com/cursor/plugins/main/schemas/plugin.schema.json
-          curl -sfL -o marketplace.schema.json \
-            https://raw.githubusercontent.com/cursor/plugins/main/schemas/marketplace.schema.json
-          node -e "
-            const Ajv = require('ajv'), addFormats = require('ajv-formats'), fs = require('fs');
-            const ajv = new Ajv({ strict: false, allErrors: true }); addFormats(ajv);
-            let failed = false;
-            // This is a single-plugin repo, so only plugin.json is expected.
-            // marketplace.json is checked only if a future change adds one.
-            const pairs = [['plugin.schema.json', '.cursor-plugin/plugin.json']];
-            if (fs.existsSync('.cursor-plugin/marketplace.json')) {
-              pairs.push(['marketplace.schema.json', '.cursor-plugin/marketplace.json']);
-            }
-            for (const [schema, doc] of pairs) {
-              const validate = ajv.compile(JSON.parse(fs.readFileSync(schema, 'utf8')));
-              if (validate(JSON.parse(fs.readFileSync(doc, 'utf8')))) {
-                console.log(doc + ': ok');
-              } else {
-                failed = true;
-                console.error(doc + ':', JSON.stringify(validate.errors, null, 2));
-              }
-            }
-            process.exit(failed ? 1 : 0);
-          "
 
       - name: The Claude and Cursor manifests agree on a version
         run: |

@@ -220,9 +220,6 @@ these ways:
   Owner turns on auto-connect for BulkPublish in Claude. Members are then
   connected as themselves with no consent screen and no key, matched by their
   verified email address in the workspace.
-- **Key in the URL,** for hosts that don't do OAuth:
-  `https://mcp.bulkpublish.com/mcp?key=bp_your_key_here`. Treat that URL as a
-  secret — anyone holding it holds your API key.
 
 Get a key at [app.bulkpublish.com/developer](https://app.bulkpublish.com/developer).
 
@@ -497,7 +494,7 @@ BulkPublish is available across many platforms:
 
 - `mcp.json` (Agent Plugins format, used by Cursor) and `gemini-extension.json` (Gemini CLI): connect to the hosted server `https://mcp.bulkpublish.com/mcp/full` over HTTPS and sign in with OAuth. No key is stored in the repo.
 - `.claude-plugin/plugin.json` and `.mcp.json` (Claude Code plugin, Grok Build and other clients): connect to the hosted server `https://mcp.bulkpublish.com/mcp/full` over HTTPS and sign in with OAuth. Nothing runs locally and no key is read from your machine.
-- Credentials: a BulkPublish API key (starts with `bp_`, created at https://app.bulkpublish.com/developer) or an OAuth sign-in. No other secrets, files, or env vars are read.
+- Credentials: an OAuth sign-in to your BulkPublish account, approved in your browser. The plugin reads nothing from your machine.
 
 ## Privacy Policy
 
