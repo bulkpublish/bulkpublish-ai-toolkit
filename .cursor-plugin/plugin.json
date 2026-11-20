@@ -1,8 +1,8 @@
 {
   "name": "bulkpublish",
   "displayName": "BulkPublish",
-  "version": "1.18.1",
-  "description": "Draft, schedule and publish social media posts across 15 networks, manage media and channels, and read engagement metrics \u2014 through BulkPublish's official remote MCP server.",
+  "version": "1.18.2",
+  "description": "Draft, schedule and publish social media posts across 15 networks, manage media and channels, and read engagement metrics — through BulkPublish's official remote MCP server.",
   "author": {
     "name": "BulkPublish",
     "email": "support@bulkpublish.com"
@@ -10,7 +10,7 @@
   "homepage": "https://bulkpublish.com",
   "repository": "https://github.com/bulkpublish/bulkpublish-ai-toolkit",
   "license": "MIT",
-  "logo": "assets/logo.svg",
+  "logo": "assets/logo.png",
   "category": "productivity",
   "keywords": [
     "bulkpublish",

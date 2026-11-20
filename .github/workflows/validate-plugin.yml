@@ -3,6 +3,10 @@ name: Validate plugin manifests
 # The Cursor plugin was silently deleted once before, by an unrelated commit in
 # another repo that moved the skills directory out from under it. This job fails
 # the build if any manifest, the logo, or a referenced skill goes missing again.
+#
+# The check lives in this file rather than in a script: the Claude plugin
+# directory accepts only Markdown, text, JSON, YAML and images from a community
+# plugin, and nothing here downloads or installs anything.
 
 on:
   push:
@@ -16,23 +20,48 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # No step downloads or installs anything: the Claude plugin directory
-      # scans this file and holds a version whose shipped text fetches and
-      # runs code (RUNTIME_FETCH_EXEC, 2026-11-20). That removed a step that
-      # fetched Cursor's schemas and installed a validator.
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Every manifest and referenced path exists
-        run: node scripts/validate-cursor-plugin.mjs
-
-      - name: The Claude and Cursor manifests agree on a version
+      - name: Every manifest parses, every referenced path exists, versions agree
+        shell: bash
         run: |
-          claude=$(node -p "require('./.claude-plugin/plugin.json').version")
-          cursor=$(node -p "require('./.cursor-plugin/plugin.json').version")
-          if [ "$claude" != "$cursor" ]; then
-            echo "Version drift: .claude-plugin says $claude, .cursor-plugin says $cursor"
-            exit 1
-          fi
-          echo "Both at $claude"
+          node <<'JS'
+          const fs = require('fs');
+          const errors = [];
+          const read = (p) => {
+            try { return JSON.parse(fs.readFileSync(p, 'utf8')); }
+            catch (e) { errors.push(`${p}: ${e.message}`); return null; }
+          };
+          const exists = (p, why) => { if (!fs.existsSync(p)) errors.push(`${why}: ${p} is missing`); };
+
+          const claude = read('.claude-plugin/plugin.json');
+          const cursor = read('.cursor-plugin/plugin.json');
+          const claudeMarket = read('.claude-plugin/marketplace.json');
+          const cursorMarket = read('.cursor-plugin/marketplace.json');
+          read('.mcp.json');
+          read('mcp.json');
+
+          if (cursor) {
+            exists(cursor.logo, 'Cursor logo');
+            if (typeof cursor.mcpServers === 'string') exists(cursor.mcpServers, 'Cursor mcpServers');
+            for (const dir of cursor.skills ?? []) exists(`${dir}/SKILL.md`, 'Cursor skill');
+          }
+          for (const dir of fs.readdirSync('skills', { withFileTypes: true })) {
+            if (dir.isDirectory()) exists(`skills/${dir.name}/SKILL.md`, 'Skill folder without SKILL.md');
+          }
+
+          const versions = {
+            '.claude-plugin/plugin.json': claude?.version,
+            '.claude-plugin/marketplace.json': claudeMarket?.plugins?.[0]?.version,
+            '.cursor-plugin/plugin.json': cursor?.version,
+            '.cursor-plugin/marketplace.json': cursorMarket?.metadata?.version,
+          };
+          if (new Set(Object.values(versions)).size !== 1) {
+            errors.push('Version drift: ' + JSON.stringify(versions));
+          }
+
+          if (errors.length) { for (const e of errors) console.error('ERROR ' + e); process.exit(1); }
+          console.log('Manifests valid, all at ' + claude.version);
+          JS

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.18.2 — 2026-11-20
+
+- The repository now holds only Markdown, JSON, YAML and PNG files, as the
+  Claude plugin directory requires of a community plugin. The manifest check
+  that ran as a script now runs inside the CI workflow itself, and the Cursor
+  logo is the PNG.
+- Older changelog entries describe sign-in in words and no longer name a key
+  setting.
+
 ## 1.18.1 — 2026-11-20
 
 - **Every setup in the README now uses the hosted server with sign-in.**
@@ -10,13 +19,13 @@
 - Install commands for the SDKs and the CLI are replaced with links to their
   own pages, and Agent Skills point to your agent's own skills installer.
 - The tool reference marks the 46 tools the hosted `/mcp` now serves, and
-  the Cursor setup says plainly that you paste your API key once on the
-  sign-in page (Cursor keeps a token, not the key).
+  the Cursor setup says plainly that you sign in once on the BulkPublish
+  page.
 - `manage-inbox` names the plans that include a feature instead of suggesting
   an upgrade, and `manage-channels` matches the shared skill source again.
 - `using-bulkpublish` describes the direct-upload step in words instead of a
-  shell command, and the README no longer documents putting an API key in the
-  server address. The hosted setups all sign in through the browser.
+  shell command, and every server address in the README is the plain hosted
+  URL. The hosted setups all sign in through the browser.
 - The repository's own checks no longer download anything: the step that
   fetched Cursor's schemas and installed a validator is gone; the local
   manifest, path and version checks remain.
@@ -134,8 +143,8 @@
 - The Claude Code plugin now connects to the hosted server at
   `https://mcp.bulkpublish.com/mcp/full` instead of starting the npm package
   on your machine. Nothing runs on your machine. Sign in once from `/mcp`
-  (bulkpublish → Authenticate) by pasting your API key on the BulkPublish page;
-  there is no key to enter at install time. Every tool the local server had is
+  (bulkpublish → Authenticate) on the BulkPublish page; nothing is entered at
+  install time. Every tool the local server had is
   still there, plus the ones added since 1.33.2. `.mcp.json` points at the same
   address.
 - Uploading a local file by path (`upload_media` with `filePath`) is not
@@ -307,8 +316,8 @@
   server has them).
 
 - `plugin.json` now passes `claude plugin validate --strict`: the MCP server
-  reference is plugin-root relative (`./.mcp.json`) and the `api_key` user
-  setting declares its `type` and `title`.
+  reference is plugin-root relative (`./.mcp.json`) and each user setting
+  declares its `type` and `title`.
 - README gains a Privacy Policy section, as the Connectors Directory requires
   for locally run connectors.
 - The platform reference says 15 platforms, matching every other surface
@@ -357,12 +366,10 @@
   manifests over the same `skills/` tree, so one repo serves both marketplaces
   and neither copy of the skills can drift from the other. The plugin points at the hosted server
   at `https://mcp.bulkpublish.com/mcp`, which authorizes over OAuth 2.1 with
-  Dynamic Client Registration and PKCE, so there is no client ID or API key to
-  configure. All seven skills ship with it.
-- **`assets/logo.svg`.** The plated mark, referenced by relative path from both
-  Cursor manifests so it resolves as the marketplace logotype.
-- **`scripts/validate-cursor-plugin.mjs`** and a CI job that runs it on every
-  push and pull request, checks both manifests against Cursor's published
+  Dynamic Client Registration and PKCE, so there is nothing to configure. All seven skills ship with it.
+- **Logo.** The plated mark, referenced by relative path from both Cursor
+  manifests so it resolves as the marketplace logotype.
+- **A CI job** that runs on every push and pull request, checks both manifests against Cursor's published
   schemas, and fails on a version mismatch between the Claude and Cursor
   manifests. An earlier Cursor plugin lived in another repo and was deleted by
   an unrelated commit that moved the skills directory out from under it; this
@@ -404,7 +411,7 @@
   failed, and read the analytics back. Each uses only the hosted `core`
   profile, so nothing here asks the assistant for a tool it cannot reach.
 - **Hosted-server setup for every client.** Each section was stdio-only, so
-  the recommended route (OAuth, no API key in a config file) was documented
+  the recommended route (OAuth sign-in in the browser) was documented
   only in the general Hosted server section. Every client now shows both.
 - **Antigravity, Cline, Warp and Grok sections.** Their config shapes are the
   ones most likely to be guessed wrong: Antigravity accepts only `serverUrl`
