@@ -4,7 +4,7 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 
 ## What You Get
 
-**82 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the [`@bulkpublish/mcp-server`](https://www.npmjs.com/package/@bulkpublish/mcp-server) package run on your own machine. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools; `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` switches the local server.
+**82 MCP tools**, including interactive MCP Apps widgets, from the Claude Code plugin (hosted at `https://mcp.bulkpublish.com/mcp/full`) or the [`@bulkpublish/mcp-server`](https://www.npmjs.com/package/@bulkpublish/mcp-server) package run on your own machine. The hosted server at `https://mcp.bulkpublish.com/mcp` (OAuth 2.1, used by the Claude and ChatGPT directories) serves a shorter set — channels, posts, media, analytics and the interactive panels, plus the Inbox and comment tools.
 
 | Category | Tools (full profile) | Examples |
 |---|---|---|
@@ -93,7 +93,7 @@ installed and no key is written to a config file.
 
 ### Cursor
 
-**Option A — Plugin (recommended, includes the skills and needs no key):**
+**Option A — Plugin (recommended, includes the skills, nothing to install):**
 
 Search for **BulkPublish** in **Cursor Settings → Plugins** and click Install, then
 complete the BulkPublish sign-in prompt. Or add this repo as a marketplace and
@@ -105,8 +105,9 @@ install from it:
 
 The plugin connects to the hosted server at `https://mcp.bulkpublish.com/mcp/full`, with every tool.
 Sign-in is OAuth 2.1 with Dynamic Client Registration and PKCE, so Cursor
-registers itself and there is no client ID or API key to paste. It ships every
-skill alongside the tools.
+registers itself and there is no client ID to set up; you paste your API key
+once, on the BulkPublish sign-in page, and Cursor keeps a sign-in token rather
+than the key. It ships every skill alongside the tools.
 
 **Option B — hosted server only.** `.cursor/mcp.json` in your project root (or globally at `~/.cursor/mcp.json`):
 
@@ -350,8 +351,9 @@ so other agents can use it too: point your agent's own skills installer at
 
 ## Prompts to Start With
 
-Paste one of these once the server is connected. Each uses only what the
-hosted `core` profile can do, so the assistant is never left guessing.
+Paste one of these once the server is connected. Each uses only tools that
+every setup serves, including the hosted `https://mcp.bulkpublish.com/mcp`, so
+the assistant is never left guessing.
 Replace anything in square brackets.
 
 **See what is connected**
@@ -385,7 +387,9 @@ The same list, in nine languages, is on every client guide at
 
 ## Examples
 
-Once connected, just ask your AI assistant in natural language:
+Once connected, just ask your AI assistant in natural language. The plan-usage
+and RSS feed requests need every tool: the plugin, `https://mcp.bulkpublish.com/mcp/full`
+or the npm server.
 
 ```
 "Schedule a post about our new feature to Twitter and LinkedIn for tomorrow at 9am EST"
@@ -411,10 +415,12 @@ Once connected, just ask your AI assistant in natural language:
 
 ## MCP Tool Reference
 
-The hosted server serves the 26-tool `core` profile marked `*` below (plus the tools marked `+` where it serves the `inbox` profile); the local
-server serves all 82 (the list below shows the main groups; labels, hashtag
+The hosted server at `https://mcp.bulkpublish.com/mcp` serves 46 tools: those
+marked `*` or `+` below, plus `list_templates`, `list_hashtag_groups`,
+`share_post` and `unshare_post`. The plugin, `https://mcp.bulkpublish.com/mcp/full`
+and the npm server serve all 82 (the list below shows the main groups; hashtag
 groups, templates, calendar notes and review/connect links are summarised in
-the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
+the table above).
 
 <details>
 <summary>Click to expand full tool list</summary>
@@ -423,25 +429,25 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 `create_post`*, `update_post`*, `delete_post`*, `list_posts`*, `get_post`*, `publish_post`*, `retry_post`*, `get_post_metrics`*, `get_queue_slot`*, `approve_post`*, `reject_post`*, `publish_story`, `bulk_posts`
 
 **Channels (5):**
-`list_channels`*, `update_channel`*, `get_channel_health`, `get_channel_options`*, `search_mentions`
+`list_channels`*, `update_channel`*, `get_channel_health`+, `get_channel_options`*, `search_mentions`
 
 **Platforms (1):**
 `list_platforms`
 
-**Media (9):**
-`upload_media`*, `list_media`*, `create_media_upload`*, `finalize_media_upload`*, `get_media`, `delete_media`, `create_multipart_upload`, `complete_multipart_upload`, `abort_multipart_upload`
+**Media (10):**
+`upload_media`*, `list_media`*, `create_media_upload`*, `finalize_media_upload`*, `get_media`+, `update_media`+, `delete_media`+, `create_multipart_upload`, `complete_multipart_upload`, `abort_multipart_upload`
 
 **Analytics (3):**
-`get_analytics`*, `get_account_analytics`, `get_engagement_analytics`
+`get_analytics`*, `get_account_analytics`+, `get_engagement_analytics`+
 
 **Labels (4):**
-`list_labels`*, `create_label`, `update_label`, `delete_label`
+`list_labels`*, `create_label`+, `update_label`, `delete_label`
 
 **Channel sets (4):**
 `list_channel_sets`, `create_channel_set`, `update_channel_set`, `delete_channel_set`
 
 **Schedules (4):**
-`list_schedules`, `create_schedule`, `update_schedule`, `delete_schedule`
+`list_schedules`+, `create_schedule`, `update_schedule`+, `delete_schedule`+
 
 **RSS autopost (4):**
 `list_rss_feeds`, `create_rss_feed`, `update_rss_feed`, `delete_rss_feed`
@@ -455,7 +461,7 @@ the table above). Set `BULKPUBLISH_TOOL_PROFILE=core|inbox|full` to switch.
 **Interactive UI (MCP Apps) (6):**
 `compose_post`*, `view_analytics`*, `view_posts`*, `view_channels`*, `view_media`*, `view_quota`
 
-`*` = in the hosted `core` profile. `+` = added by the `inbox` profile.
+`*` = core set, on every hosted endpoint. `+` = also on the hosted `https://mcp.bulkpublish.com/mcp`.
 
 </details>
 
