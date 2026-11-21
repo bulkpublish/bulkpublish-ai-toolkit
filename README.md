@@ -332,7 +332,9 @@ simpler and keeps no key on your disk.
 The Claude Code, Cursor and Gemini plugins all install the same skills: how to post to each of the 15 networks, schedule and change
 posts, fix failures, run approvals, publish video and stories, set up repeating
 posts and RSS feeds, work with clients, organise labels and templates, read
-analytics, answer the Inbox, and plan, write and review content. In Claude Code
+analytics, find what worked and post at the best times, plan next week from
+last month's results, answer the Inbox and mentions, keep a saved-replies
+library, and plan, write and review content. In Claude Code
 each one is also a command, such as `/bulkpublish:schedule-post`.
 
 The full list, with what each one is for, is in [skills/README.md](skills/README.md).

@@ -15,6 +15,18 @@
 - `get-analytics` covers best times to post (only from slots with enough
   posts), comparing a post with its account's usual, a post's figures over
   time, and link clicks; `link-tracking-review` points to `get_link_analytics`.
+- Five new skills, each built only on calls checked against a running server:
+  `performance-review` (posts that did better or worse than their account's
+  usual, and what they share), `best-time-scheduling` (when to post, and
+  scheduling into those times; falls back to the queue when there is not
+  enough history), `next-week-plan` (look back over 30 days, draft, pick times,
+  save as drafts until you say go), `mention-monitoring` (mentions of your
+  accounts: what is covered, what is not, and confirmed public replies), and
+  `saved-replies-library` (build the team's saved replies from recurring
+  questions, and fill in placeholders before anything is sent).
+- `manage-inbox` says where a teammate's id comes from (an assignee or a note
+  author), since no tool lists the team, instead of leaving the assistant to
+  guess one.
 
 ## 1.18.2 — 2026-11-20
 
