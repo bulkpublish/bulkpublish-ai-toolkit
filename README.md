@@ -25,7 +25,7 @@ Every tool carries a title and explicit `readOnlyHint` / `destructiveHint` / `id
 
 **Link tracking:** BulkPublish can rewrite a post's links to `bulkpubli.sh` short URLs and count the clicks — the only way to measure outbound clicks, since platform APIs do not report them (X dropped the field entirely). It is off by default, opt-in per organization, and part of the Pro and Business plans only (on Free, links always publish as written); `linkTrackingOverride` (`true` | `false` | `null`, default `null`) overrides it per post. It is **tri-state — omit it unless the user asked**, because `false` is an explicit "post the links as written", not the same as inheriting. Clicks come back as `linkClicks` / `totalLinkClicks`, which are measured by us and therefore available on every platform, and are deliberately **not** part of `clicks`/`totalClicks` — one visit can register in both, so never add them together. Shortening is skipped on any channel where the rewrite would exceed that platform's character limit (a short URL is 28 characters and can be longer than the link it replaces), so tracking can silently not apply on X or Bluesky; the post still publishes with its original links.
 
-**Inbox and comments:** the Inbox (DMs, reviews, comment threads) is part of the Pro and Business plans; replying to or moderating comments on a post is on every plan except Free; reading a post's comments works on every plan. A channel connected before message or comment access was available may need reconnecting, and some platforms do not allow DMs or replies yet. Replies and deletions cannot be unsent, so the `manage-inbox` skill makes the assistant show the exact text and recipient and wait for your yes on each one.
+**Inbox and comments:** the Inbox (DMs, reviews, comment threads and mentions, with team notes, labels and saved replies) is part of the Pro and Business plans; replying to or moderating comments on a post is on every plan except Free; reading a post's comments works on every plan. A channel connected before message or comment access was available may need reconnecting, and some platforms do not allow DMs or replies yet. Replies and deletions cannot be unsent, so the `manage-inbox` skill makes the assistant show the exact text and recipient and wait for your yes on each one.
 
 **Supported platforms:** Facebook, Instagram, X/Twitter, TikTok, YouTube, Threads, Bluesky, Pinterest, Google Business Profile, LinkedIn, Mastodon, Discord, Telegram, Tumblr, Snapchat
 
@@ -412,10 +412,10 @@ or the npm server.
 
 ## MCP Tool Reference
 
-The hosted server at `https://mcp.bulkpublish.com/mcp` serves 46 tools: those
+The hosted server at `https://mcp.bulkpublish.com/mcp` serves 56 tools: those
 marked `*` or `+` below, plus `list_templates`, `list_hashtag_groups`,
 `share_post` and `unshare_post`. The plugin, `https://mcp.bulkpublish.com/mcp/full`
-and the npm server serve all 82 (the list below shows the main groups; hashtag
+and the npm server serve all 92 (the list below shows the main groups; hashtag
 groups, templates, calendar notes and review/connect links are summarised in
 the table above).
 
@@ -423,7 +423,7 @@ the table above).
 <summary>Click to expand full tool list</summary>
 
 **Posts (13):**
-`create_post`*, `update_post`*, `delete_post`*, `list_posts`*, `get_post`*, `publish_post`*, `retry_post`*, `get_post_metrics`*, `get_queue_slot`*, `approve_post`*, `reject_post`*, `publish_story`, `bulk_posts`
+`create_post`*, `update_post`*, `delete_post`*, `list_posts`*, `get_post`*, `publish_post`*, `retry_post`*, `get_post_metrics`*, `get_queue_slot`*, `approve_post`*, `reject_post`*, `publish_story`, `bulk_posts`+
 
 **Channels (5):**
 `list_channels`*, `update_channel`*, `get_channel_health`+, `get_channel_options`*, `search_mentions`
@@ -434,8 +434,11 @@ the table above).
 **Media (10):**
 `upload_media`*, `list_media`*, `create_media_upload`*, `finalize_media_upload`*, `get_media`+, `update_media`+, `delete_media`+, `create_multipart_upload`, `complete_multipart_upload`, `abort_multipart_upload`
 
-**Analytics (3):**
-`get_analytics`*, `get_account_analytics`+, `get_engagement_analytics`+
+**Analytics (6):**
+`get_analytics`*, `get_account_analytics`+, `get_engagement_analytics`+, `get_best_times`+, `get_post_metrics_history`+, `get_link_analytics`+
+
+**Activity (1):**
+`list_activity`+
 
 **Labels (4):**
 `list_labels`*, `create_label`+, `update_label`, `delete_label`
@@ -444,13 +447,13 @@ the table above).
 `list_channel_sets`, `create_channel_set`, `update_channel_set`, `delete_channel_set`
 
 **Schedules (4):**
-`list_schedules`+, `create_schedule`, `update_schedule`+, `delete_schedule`+
+`list_schedules`+, `create_schedule`+, `update_schedule`+, `delete_schedule`+
 
 **RSS autopost (4):**
 `list_rss_feeds`, `create_rss_feed`, `update_rss_feed`, `delete_rss_feed`
 
-**Inbox and comments (7):**
-`list_conversations`+, `get_conversation`+, `reply_to_conversation`+, `update_conversation`+, `list_post_comments`*, `reply_to_comment`+, `moderate_comment`+
+**Inbox and comments (13):**
+`list_conversations`+, `get_conversation`+, `reply_to_conversation`+, `update_conversation`+, `add_conversation_note`+, `set_conversation_labels`+, `list_saved_replies`+, `create_saved_reply`+, `update_saved_reply`, `delete_saved_reply`, `list_post_comments`*, `reply_to_comment`+, `moderate_comment`+
 
 **Quota (1):**
 `get_quota_usage`

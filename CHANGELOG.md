@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.19.0 — 2026-11-21
+
+- Follows MCP server 1.60.0. The hosted `/mcp` now serves 56 tools (was 46)
+  and the full server 92 (was 82). New: `add_conversation_note`,
+  `set_conversation_labels`, `list_saved_replies`, `create_saved_reply`,
+  `update_saved_reply` and `delete_saved_reply` (the last two on the full
+  server only), `get_best_times`, `get_post_metrics_history`,
+  `get_link_analytics` and `list_activity`. `create_schedule` and `bulk_posts`
+  are now on the hosted `/mcp` too.
+- `manage-inbox` covers mentions, team notes, Inbox labels and saved replies,
+  and fills in a saved reply's placeholders before showing the text for
+  approval.
+- `get-analytics` covers best times to post (only from slots with enough
+  posts), comparing a post with its account's usual, a post's figures over
+  time, and link clicks; `link-tracking-review` points to `get_link_analytics`.
+
 ## 1.18.2 — 2026-11-20
 
 - The repository now holds only Markdown, JSON, YAML and PNG files, as the
