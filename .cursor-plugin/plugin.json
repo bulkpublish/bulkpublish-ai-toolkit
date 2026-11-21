@@ -74,7 +74,12 @@
     "./skills/social-post-review",
     "./skills/social-trend-research",
     "./skills/ugc-content-planner",
-    "./skills/video-publishing"
+    "./skills/video-publishing",
+    "./skills/performance-review",
+    "./skills/best-time-scheduling",
+    "./skills/next-week-plan",
+    "./skills/mention-monitoring",
+    "./skills/saved-replies-library"
   ],
   "mcpServers": "./mcp.json"
 }

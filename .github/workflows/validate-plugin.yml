@@ -48,8 +48,13 @@ jobs:
             if (typeof cursor.mcpServers === 'string') exists(cursor.mcpServers, 'Cursor mcpServers');
             for (const dir of cursor.skills ?? []) exists(`${dir}/SKILL.md`, 'Cursor skill');
           }
+          const listed = new Set((cursor?.skills ?? []).map((s) => s.replace(/^\.\//, '')));
           for (const dir of fs.readdirSync('skills', { withFileTypes: true })) {
-            if (dir.isDirectory()) exists(`skills/${dir.name}/SKILL.md`, 'Skill folder without SKILL.md');
+            if (!dir.isDirectory()) continue;
+            exists(`skills/${dir.name}/SKILL.md`, 'Skill folder without SKILL.md');
+            // Cursor installs only the skills its manifest lists; a new folder
+            // left off the list ships everywhere except Cursor, silently.
+            if (cursor && !listed.has(`skills/${dir.name}`)) errors.push(`Cursor plugin does not list skills/${dir.name}`);
           }
 
           const versions = {
@@ -57,6 +62,8 @@ jobs:
             '.claude-plugin/marketplace.json': claudeMarket?.plugins?.[0]?.version,
             '.cursor-plugin/plugin.json': cursor?.version,
             '.cursor-plugin/marketplace.json': cursorMarket?.metadata?.version,
+            'plugin.json': read('plugin.json')?.version,
+            'gemini-extension.json': read('gemini-extension.json')?.version,
           };
           if (new Set(Object.values(versions)).size !== 1) {
             errors.push('Version drift: ' + JSON.stringify(versions));

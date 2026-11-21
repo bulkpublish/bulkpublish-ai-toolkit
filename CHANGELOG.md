@@ -24,6 +24,10 @@
   accounts: what is covered, what is not, and confirmed public replies), and
   `saved-replies-library` (build the team's saved replies from recurring
   questions, and fill in placeholders before anything is sent).
+- The Cursor plugin lists the five new skills (Cursor installs only listed
+  ones), and the Gemini extension and root `plugin.json` move from 1.12.0 to
+  1.19.0 with the other manifests. The manifest check now fails on a skill
+  folder Cursor does not list and on any of the six versions disagreeing.
 - `manage-inbox` says where a teammate's id comes from (an assignee or a note
   author), since no tool lists the team, instead of leaving the assistant to
   guess one.
