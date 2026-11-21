@@ -412,10 +412,10 @@ or the npm server.
 
 ## MCP Tool Reference
 
-The hosted server at `https://mcp.bulkpublish.com/mcp` serves 56 tools: those
+The hosted server at `https://mcp.bulkpublish.com/mcp` serves 55 tools: those
 marked `*` or `+` below, plus `list_templates`, `list_hashtag_groups`,
 `share_post` and `unshare_post`. The plugin, `https://mcp.bulkpublish.com/mcp/full`
-and the npm server serve all 92 (the list below shows the main groups; hashtag
+and the npm server serve all 91 (the list below shows the main groups; hashtag
 groups, templates, calendar notes and review/connect links are summarised in
 the table above).
 
@@ -436,9 +436,6 @@ the table above).
 
 **Analytics (6):**
 `get_analytics`*, `get_account_analytics`+, `get_engagement_analytics`+, `get_best_times`+, `get_post_metrics_history`+, `get_link_analytics`+
-
-**Activity (1):**
-`list_activity`+
 
 **Labels (4):**
 `list_labels`*, `create_label`+, `update_label`, `delete_label`

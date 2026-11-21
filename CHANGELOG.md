@@ -2,12 +2,12 @@
 
 ## 1.19.0 — 2026-11-21
 
-- Follows MCP server 1.60.0. The hosted `/mcp` now serves 56 tools (was 46)
-  and the full server 92 (was 82). New: `add_conversation_note`,
+- Follows MCP server 1.60.0. The hosted `/mcp` now serves 55 tools (was 46)
+  and the full server 91 (was 82). New: `add_conversation_note`,
   `set_conversation_labels`, `list_saved_replies`, `create_saved_reply`,
   `update_saved_reply` and `delete_saved_reply` (the last two on the full
   server only), `get_best_times`, `get_post_metrics_history`,
-  `get_link_analytics` and `list_activity`. `create_schedule` and `bulk_posts`
+  and `get_link_analytics`. `create_schedule` and `bulk_posts`
   are now on the hosted `/mcp` too.
 - `manage-inbox` covers mentions, team notes, Inbox labels and saved replies,
   and fills in a saved reply's placeholders before showing the text for
