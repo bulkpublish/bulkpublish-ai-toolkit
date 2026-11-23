@@ -11,11 +11,12 @@ Connect your AI assistant to [BulkPublish](https://bulkpublish.com) — schedule
 | **Posts** | 13 | Create, update, get, list, publish, retry, delete, approve, reject, story, bulk actions, metrics, queue slot |
 | **Channels** | 5 | List accounts, platforms, health check, platform options, @mention search |
 | **Media** | 10 | Upload (URL/file), list, get, alt text, delete, presigned and chunked uploads |
-| **Analytics** | 3 | Summary by date range with per-platform breakdown, account growth snapshots, and engagement across posts with a top-posts ranking |
+| **Analytics** | 6 | Summary by date range with per-platform breakdown, account growth snapshots, engagement across posts with a top-posts ranking, best times to post, post metric history, and link clicks |
 | **Labels, hashtag groups, templates, calendar notes** | 16 | Create, list, update, delete each |
 | **Client review & connect links** | 8 | Share/unshare a post, batch review links, client connect links |
 | **Schedules, channel sets, RSS autopost** | 12 | Create, list, update, delete each |
-| **Inbox and comments** | 7 | List and read conversations, reply to DMs and reviews, triage (read/archive/snooze/assign), list comments, reply to and moderate comments |
+| **Inbox and comments** | 13 | List and read conversations, reply to DMs and reviews, triage (read/archive/snooze/assign), team notes, conversation labels, saved replies, list comments, reply to and moderate comments |
+| **Platforms** | 1 | Which platforms can be connected right now |
 | **Quota** | 1 | Plan usage and limits |
 | **Interactive panels** | 6 | Composer, posts, channels, media, analytics, quota |
 
