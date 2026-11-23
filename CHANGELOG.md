@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.19.2 — 2026-11-24
+
+- `schedule-post` and `using-bulkpublish`: a thread part can carry a poll
+  (X and Threads on any part, Mastodon on the first), and in a non-thread post
+  `platformThreadParts` plus a `"thread"` post type sends one network a thread
+  while the others post normally.
+
 ## 1.19.1 — 2026-11-23
 
 - `platform-reference`: an Instagram `feed_video` publishes as a Reel, so
