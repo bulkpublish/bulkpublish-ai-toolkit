@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.19.1 — 2026-11-23
+
+- `platform-reference`: an Instagram `feed_video` publishes as a Reel, so
+  `trialReel` (and show-in-feed) now take effect on it too instead of being
+  ignored.
+
 ## 1.19.0 — 2026-11-21
 
 - Follows MCP server 1.60.0. The hosted `/mcp` now serves 55 tools (was 46)
